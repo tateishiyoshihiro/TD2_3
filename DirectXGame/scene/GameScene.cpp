@@ -1,19 +1,37 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	viewProjection_.Initialize();
+
+	//ステージのモデルの初期化
+	modelStage_.reset(Model::CreateFromOBJ("ground", true));
+
+	//ステージの生成
+	stage_ = std::make_unique<Stage>();
+	//ステージの初期化
+	stage_->Initialize(modelStage_.get());
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	stage_->Update();
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +59,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	stage_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

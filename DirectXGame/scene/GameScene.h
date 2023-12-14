@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
+#include <memory>
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
@@ -47,11 +48,17 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+	//worldTransformの初期化？
+	WorldTransform worldTransform_;
+
 	//ステージクラスをゲームシーンに持たせる
 	std::unique_ptr<Stage> stage_;
 
 	//ステージモデルを生成
-	std::unique_ptr<Stage> modelstage_;
+	std::unique_ptr<Model> modelStage_;
+
+	// viewProjectionの初期化？
+	ViewProjection viewProjection_;
 
 	/// <summary>
 	/// ゲームシーン用
