@@ -9,6 +9,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "Stage.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -44,6 +46,12 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	//ステージクラスをゲームシーンに持たせる
+	std::unique_ptr<Stage> stage_;
+
+	//ステージモデルを生成
+	std::unique_ptr<Stage> modelstage_;
 
 	/// <summary>
 	/// ゲームシーン用
