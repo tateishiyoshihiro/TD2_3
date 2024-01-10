@@ -8,6 +8,10 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+  #include "Player.h"
+#include <memory>
+#include "DebugCamera.h"
+#include "FollowCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -44,6 +48,23 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	bool isDebugCameraActive_ = false;
+	DebugCamera* debugCamera_ = nullptr;
+
+	uint32_t textureHandle_ = 0;
+	std::unique_ptr<Model> model_ = nullptr;
+
+	// 3Dモデル
+	std::unique_ptr<Model> modelFighterBody_ = nullptr;
+	std::unique_ptr<Model> modelFighterHead_ = nullptr;
+	std::unique_ptr<Model> modelFighterL_arm_ = nullptr;
+	std::unique_ptr<Model> modelFighterR_arm_ = nullptr;
+
+	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
+
+	ViewProjection viewProjection_;
+	std::unique_ptr<Player> player_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
