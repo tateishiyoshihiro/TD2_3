@@ -39,6 +39,63 @@ void Player::Initalize(const std::vector<Model*>& models) {
 
 void Player::Update() {
 
+if (behaviorRequest_) {
+
+		behavior_ = behaviorRequest_.value();
+
+		switch (behavior_) {
+		case Behavior::kRoot:
+		default:
+			BehaviorRootInitialize();
+			break;
+		case Behavior::kAttack:
+
+			BehaviorAttackInitialize();
+
+			break;
+		}
+		// 振る舞いリセット
+		behaviorRequest_ = std::nullopt;
+	}
+
+	switch (behavior_) {
+	case Behavior::kRoot:
+	default:
+		BehaviorRootUpdate();
+
+		break;
+	case Behavior::kAttack:
+
+		BehaviorAttackUpdate();
+
+		break;
+	}
+
+	
+
+	for (int i = 0; i < 4; i++) {
+
+		worldTransform_[i].UpdateMatrix();
+	}
+	
+
+}
+
+void Player::Draw(ViewProjection& viewProjection) {
+
+	 for (int i = 0; i < 4; i++) {
+		models_[i]->Draw(worldTransform_[i], viewProjection);
+	}
+
+
+}
+
+
+
+void Player::BehaviorRootUpdate() {
+
+	BaseCharacter::Update();
+
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.1f;
 
@@ -78,20 +135,51 @@ void Player::Update() {
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += move.x;
 		worldTransform_[0].translation_.y += move.y;
-		//worldTransform_[0].translation_.z += move.z;
+		worldTransform_[0].translation_.z += move.z;
 
 		worldTransform_[i].UpdateMatrix();
 	}
+}
+
+void Player::BehaviorAttackUpdate() {
+
+	X += 0.05f;
 
 	
 
+	
+
+	if (X >= 2.6) {
+
+		X = 0;
+
+		behaviorRequest_ = Behavior::kRoot;
+	}
 }
 
-void Player::Draw(ViewProjection& viewProjection) {
+void Player::BehaviorRootInitialize() {
 
-	 for (int i = 0; i < 4; i++) {
-		models_[i]->Draw(worldTransform_[i], viewProjection);
-	}
+	worldTransform_[2].scale_ = {1.0f, 1.0f, 1.0f};
+	worldTransform_[2].rotation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_[2].translation_ = {-0.51f, 1.26f, 0.0f};
 
+	worldTransform_[3].scale_ = {1.0f, 1.0f, 1.0f};
+	worldTransform_[3].rotation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_[3].translation_ = {0.51f, 1.26f, 0.0f};
+}
 
+void Player::BehaviorAttackInitialize() {
+
+	worldTransform_[0].translation_.y = 0.0f;
+
+	worldTransform_[2].scale_ = {1.0f, 1.0f, 1.0f};
+	worldTransform_[2].rotation_ = {3.0f, 0.0f, 0.0f};
+	worldTransform_[2].translation_ = {-0.51f, 1.26f, 0.0f};
+
+	worldTransform_[3].scale_ = {1.0f, 1.0f, 1.0f};
+	worldTransform_[3].rotation_ = {3.0f, 0.0f, 0.0f};
+	worldTransform_[3].translation_ = {0.51f, 1.26f, 0.0f};
+
+	
+	X = 0;
 }
