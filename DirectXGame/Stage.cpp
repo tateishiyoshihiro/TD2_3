@@ -11,9 +11,24 @@ void Stage::Initialize(Model* model) {
 }
 
 void Stage::Update() { 
-	
+
+	XINPUT_STATE joyState;
+
+	if (worldTransform_.translation_.z >= 100) {
+
+		GoalFlag_ = true;
+	}
+
+	if (GoalFlag_ == true) {
+
+		if (Input::GetInstance()->GetJoystickState(0,joyState)) {
+
+			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
 
+			}
+		}
+	}
 
 	worldTransform_.TransferMatrix(); 
 }

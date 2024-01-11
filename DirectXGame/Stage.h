@@ -3,6 +3,8 @@
 #include "Model.h"
 #include "WorldTransform.h"
 
+#include "Input.h"
+
 class Stage {
 public:
 
@@ -18,4 +20,5 @@ private:
 
 	Model* model_ = nullptr;
 
+	bool GoalFlag_ = false;
 };
