@@ -58,6 +58,8 @@ if (behaviorRequest_) {
 
 		BehaviorJumpInitialize();
 
+		break;
+
 		}
 		// 振る舞いリセット
 		behaviorRequest_ = std::nullopt;
@@ -75,7 +77,7 @@ if (behaviorRequest_) {
 
 		break;
 
-	   	case Behavior::kJump:
+	case Behavior::kJump:
 
 		BehaviorJumpUpdate();
 
@@ -227,7 +229,9 @@ void Player::BehaviorJumpInitialize() {
 
 void Player::BehaviorJumpUpdate() {
 
-	worldTransform_[0].translation_ = Add(worldTransform_[0].translation_, velocity_);
+	worldTransform_[0].translation_.x += velocity_.x;
+
+	worldTransform_[0].translation_.y += velocity_.y;
 
 	const float kGravityAcceleration = 0.06f;
 
