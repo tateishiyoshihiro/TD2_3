@@ -8,6 +8,9 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"Enemy.h"
+#include"EnemyRed.h"
+#include <memory>
 
 /// <summary>
 /// ゲームシーン
@@ -44,7 +47,18 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	Model* model_ = nullptr;
+	uint32_t textureHandle_ = 0;
+	ViewProjection viewProjection_;
+	// 3Dモデル
+	std::unique_ptr<Model> modelFighterEnemyBody_;// 体 
+	std::unique_ptr<Model> modelFighterEnemyRedBody_;
+	std::unique_ptr<Model> modelEnemy_;
+	
 
+	// 敵
+	std::unique_ptr<Enemy> enemy_;
+	std::unique_ptr<EnemyRed> enemyRed_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

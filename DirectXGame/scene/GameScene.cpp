@@ -11,9 +11,29 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	model_ = Model::Create();
+
+	viewProjection_.Initialize();
+	viewProjection_.UpdateMatrix();
+
+	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
+	modelFighterEnemyRedBody_.reset(Model::CreateFromOBJ("needle_L_arm", true));
+	//
+	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
+	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
+
+	enemy_ = std::make_unique<Enemy>();
+	enemyRed_ = std::make_unique<EnemyRed>();
+
+	enemy_->Initialize(enemyModels);
+	enemyRed_->Initialize(enemyRedModels);
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	enemy_->Update();
+	enemyRed_->Update();
+}
 
 void GameScene::Draw() {
 
@@ -37,7 +57,9 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
-
+	
+	enemy_->Draw(viewProjection_);
+	enemyRed_->Draw(viewProjection_);
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
@@ -56,6 +78,8 @@ void GameScene::Draw() {
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
+
+	// delete model_;
 
 #pragma endregion
 }
