@@ -20,17 +20,17 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	//ステージのモデルの初期化
-	modelStage_.reset(Model::CreateFromOBJ("ground", true));
+	modelStage_T1_.reset(Model::CreateFromOBJ("ground", true));
 
 	//ステージの生成
-	stage_ = std::make_unique<Stage>();
+	stage_T1_ = std::make_unique<Stage>();
 	//ステージの初期化
-	stage_->Initialize(modelStage_.get());
+	stage_T1_->Initialize(modelStage_T1_.get());
 }
 
 void GameScene::Update() {
 
-	stage_->Update();
+	stage_T1_->Update();
 }
 
 void GameScene::Draw() {
@@ -60,7 +60,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	stage_->Draw(viewProjection_);
+	stage_T1_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
