@@ -19,6 +19,8 @@ void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
 
+	//チュートリアルステージ１
+
 	//ステージのモデルの初期化
 	modelStage_T1_.reset(Model::CreateFromOBJ("ground", true));
 
@@ -26,6 +28,10 @@ void GameScene::Initialize() {
 	stage_T1_ = std::make_unique<Stage>();
 	//ステージの初期化
 	stage_T1_->Initialize(modelStage_T1_.get());
+
+	//チュートリアルステージ２
+
+
 }
 
 void GameScene::Update() {

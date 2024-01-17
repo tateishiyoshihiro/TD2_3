@@ -51,11 +51,15 @@ private: // メンバ変数
 	//worldTransformの初期化？
 	WorldTransform worldTransform_;
 
+	//チュートリアルステージ１
+
 	//ステージクラスをゲームシーンに持たせる
 	std::unique_ptr<Stage> stage_T1_;
 
 	//ステージモデルを生成
 	std::unique_ptr<Model> modelStage_T1_;
+
+	//チュートリアルステージ２
 
 	// viewProjectionの初期化？
 	ViewProjection viewProjection_;
