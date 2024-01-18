@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
+#include <memory>
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"Enemy.h"
@@ -15,6 +16,9 @@
 #include <memory>
 #include "DebugCamera.h"
 #include "FollowCamera.h"
+
+#include "Stage.h"
+#include "Stage_2.h"
 
 /// <summary>
 /// ゲームシーン
@@ -80,6 +84,36 @@ private: // メンバ変数
 	// 敵
 	std::unique_ptr<Enemy> enemy_;
 	std::unique_ptr<EnemyRed> enemyRed_;
+	//worldTransformの初期化？
+	WorldTransform worldTransform_;
+
+	//チュートリアルステージ１
+
+	//ステージクラスをゲームシーンに持たせる
+	std::unique_ptr<Stage> stage_T1_;
+
+	//ステージモデルを生成
+	std::unique_ptr<Model> modelStage_T1_;
+
+	//チュートリアルステージ２
+
+	std::unique_ptr<Stage_2> stage_T2_;
+
+	std::unique_ptr<Model> modelStage_T2_;
+
+	std::unique_ptr<Model> modelNeedleFloor_;
+
+	std::unique_ptr<Model> modelBridge_;
+
+	// ゲームステージ　１
+
+	// ゲームステージ　２
+
+	// エクストラステージ？？？（未定）
+
+	// viewProjectionの初期化？
+	ViewProjection viewProjection_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

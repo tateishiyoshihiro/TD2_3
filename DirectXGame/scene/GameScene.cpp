@@ -1,10 +1,12 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+}
 
 void GameScene::Initialize() {
 
@@ -62,6 +64,44 @@ void GameScene::Update() {
 	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
 	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
 
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	viewProjection_.Initialize();
+
+	//チュートリアルステージ１
+
+	//ステージのモデルの初期化
+	modelStage_T1_.reset(Model::CreateFromOBJ("ground", true));
+
+	//ステージの生成
+	stage_T1_ = std::make_unique<Stage>();
+	//ステージの初期化
+	stage_T1_->Initialize(modelStage_T1_.get());
+
+	//チュートリアルステージ２
+
+	//ステージ
+	modelStage_T2_.reset(Model::CreateFromOBJ("ground", true));
+
+	//トラップ、ギミックなど
+	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
+	modelNeedleFloor_.reset(Model::CreateFromOBJ("ground", true));
+
+	stage_T2_ = std::make_unique<Stage_2>();
+
+	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
+
+	//ゲームステージ　１
+
+
+	//ゲームステージ　２
+
+
+	//エクストラステージ？？？（未定）
+
+}
+
 	enemy_ = std::make_unique<Enemy>();
 	enemyRed_ = std::make_unique<EnemyRed>();
 
@@ -82,6 +122,12 @@ void GameScene::Update() {
 
 	enemy_->Update();
 	enemyRed_->Update();
+}
+void GameScene::Update() {
+
+	stage_T1_->Update();
+
+	stage_T2_->Update();
 }
 
 void GameScene::Draw() {
@@ -115,6 +161,10 @@ void GameScene::Draw() {
 
 	player_->Draw(viewProjection_);
 
+
+	stage_T1_->Draw(viewProjection_);
+
+	stage_T2_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
