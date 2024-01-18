@@ -25,7 +25,7 @@ public:
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
-	 WorldTransform worldTransformEnemy_Body_;
+	WorldTransform worldTransformEnemy_Body_;
 	//  モデル
 	Model* model_ = nullptr;
 	// 3Dモデル
