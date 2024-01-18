@@ -6,7 +6,7 @@
 
 class Stage_2 {
 public:
-	void Initialize(Model* model);
+	void Initialize(Model* model, Model* modelBridge, Model* modelNeedleFloor);
 
 	void Update();
 
@@ -24,7 +24,7 @@ private:
 
 	WorldTransform worldTransformNeedleFloor_;
 
-	Model* model_ = nullptr;
+	Model* model_;
 
 	Model* modelBridge_;
 
@@ -32,10 +32,13 @@ private:
 
 	//フラグ
 
+	//ゴール
 	bool GoalFlag_ = false;
 
+	//橋
 	bool BridgeFlag_ = false;
 
+	//トラップ（床針）
 	bool NeedleFloorFlag_ = false;
 
 	//変数？

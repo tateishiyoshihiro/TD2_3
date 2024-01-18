@@ -31,11 +31,16 @@ void GameScene::Initialize() {
 
 	//チュートリアルステージ２
 
+	//ステージ
 	modelStage_T2_.reset(Model::CreateFromOBJ("ground", true));
+
+	//トラップ、ギミックなど
+	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
+	modelNeedleFloor_.reset(Model::CreateFromOBJ("ground", true));
 
 	stage_T2_ = std::make_unique<Stage_2>();
 
-	stage_T2_->Initialize(modelStage_T2_.get());
+	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
 
 	//ゲームステージ　１
 

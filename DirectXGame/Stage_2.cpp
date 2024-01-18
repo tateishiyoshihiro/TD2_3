@@ -1,24 +1,27 @@
 ﻿#include "Stage_2.h"
 #include <cassert>
 
-void Stage_2::Initialize(Model* model) {
+#include "ImGuiManager.h"
+
+void Stage_2::Initialize(Model* model, Model* modelBridge, Model* modelNeedleFloor) {
 	
 	assert(model);
+	assert(modelBridge);
+	assert(modelNeedleFloor);
 
 	model_ = model;
+	modelBridge_ = modelBridge;
+	modelNeedleFloor_ = modelNeedleFloor;
 
 	worldTransform_.Initialize();
 	worldTransformBridge_.Initialize();
 	worldTransformNeedleFloor_.Initialize();
 
 	worldTransformNeedleFloor_.scale_.z = 10;
-
 	worldTransformNeedleFloor_.scale_.x = 10;
-
 	worldTransformNeedleFloor_.scale_.y = 5;
 
 	worldTransformNeedleFloor_.translation_.z = 45;
-
 	worldTransformNeedleFloor_.translation_.y = -10;
 
 	NeedleFloorInitialize();
@@ -39,7 +42,6 @@ void Stage_2::Update() {
 		}
 	}
 
-
 	if (worldTransform_.translation_.z >= 100) {
 
 		GoalFlag_ = true;
@@ -51,13 +53,12 @@ void Stage_2::Update() {
 
 			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
-
+				GoalFlag_ = false;
 			}
 		}
 	}
-	
-	NeedleFloorUpdate();
 
+	NeedleFloorUpdate();
 }
 
 void Stage_2::Draw(ViewProjection& viewProjection) {
@@ -73,12 +74,9 @@ void Stage_2::Draw(ViewProjection& viewProjection) {
 
 		modelNeedleFloor_->Draw(worldTransformNeedleFloor_, viewProjection);
 	}
-
 }
 
-void Stage_2::NeedleFloorInitialize() {
-
-}
+void Stage_2::NeedleFloorInitialize() {}
 
 void Stage_2::NeedleFloorUpdate() {
 

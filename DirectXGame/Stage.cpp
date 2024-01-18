@@ -25,7 +25,7 @@ void Stage::Update() {
 
 			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
-
+				GoalFlag_ = false;
 			}
 		}
 	}

@@ -66,6 +66,10 @@ private: // メンバ変数
 
 	std::unique_ptr<Model> modelStage_T2_;
 
+	std::unique_ptr<Model> modelNeedleFloor_;
+
+	std::unique_ptr<Model> modelBridge_;
+
 	// ゲームステージ　１
 
 	// ゲームステージ　２
