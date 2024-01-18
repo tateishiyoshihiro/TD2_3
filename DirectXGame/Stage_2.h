@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Model.h"
 #include "WorldTransform.h"
 
@@ -22,9 +22,15 @@ private:
 
 	WorldTransform worldTransformBridge_;
 
+	WorldTransform worldTransformNeedleFloor_;
+
 	Model* model_ = nullptr;
 
 	Model* modelBridge_;
+
+	Model* modelNeedleFloor_;
+
+	//フラグ
 
 	bool GoalFlag_ = false;
 
@@ -32,8 +38,8 @@ private:
 
 	bool NeedleFloorFlag_ = false;
 
-	int NeedleFlame_ = 240;
+	//変数？
 
-	float NeedleSpeed_ = 0.5f;
+	int NeedleFlame_ = 240;
 
 };

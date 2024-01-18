@@ -5,6 +5,8 @@
 
 #include "Input.h"
 
+#include "Stage_2.h"
+
 class Stage {
 public:
 

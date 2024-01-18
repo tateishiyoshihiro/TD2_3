@@ -13,7 +13,7 @@ void Stage::Initialize(Model* model) {
 void Stage::Update() { 
 
 	XINPUT_STATE joyState;
-
+	
 	if (worldTransform_.translation_.z >= 100) {
 
 		GoalFlag_ = true;

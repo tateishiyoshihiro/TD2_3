@@ -1,4 +1,4 @@
-#include "Stage_2.h"
+﻿#include "Stage_2.h"
 #include <cassert>
 
 void Stage_2::Initialize(Model* model) {
@@ -8,6 +8,18 @@ void Stage_2::Initialize(Model* model) {
 	model_ = model;
 
 	worldTransform_.Initialize();
+	worldTransformBridge_.Initialize();
+	worldTransformNeedleFloor_.Initialize();
+
+	worldTransformNeedleFloor_.scale_.z = 10;
+
+	worldTransformNeedleFloor_.scale_.x = 10;
+
+	worldTransformNeedleFloor_.scale_.y = 5;
+
+	worldTransformNeedleFloor_.translation_.z = 45;
+
+	worldTransformNeedleFloor_.translation_.y = -10;
 
 	NeedleFloorInitialize();
 }
@@ -15,6 +27,18 @@ void Stage_2::Initialize(Model* model) {
 void Stage_2::Update() {
 
 	XINPUT_STATE joyState;
+
+	if (worldTransform_.translation_.z >= 70 && worldTransform_.translation_.z <= 80) {
+
+		if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+
+			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
+
+				BridgeFlag_ = true;
+			}
+		}
+	}
+
 
 	if (worldTransform_.translation_.z >= 100) {
 
@@ -44,18 +68,40 @@ void Stage_2::Draw(ViewProjection& viewProjection) {
 
 		modelBridge_->Draw(worldTransformBridge_, viewProjection);
 	}
+
+	if (NeedleFloorFlag_ == true) {
+
+		modelNeedleFloor_->Draw(worldTransformNeedleFloor_, viewProjection);
+	}
+
 }
 
 void Stage_2::NeedleFloorInitialize() {
-
-	NeedleFlame_ = 240;
-
-	NeedleSpeed_ = 0.5f;
 
 }
 
 void Stage_2::NeedleFloorUpdate() {
 
+	if (NeedleFloorFlag_ == false) {
 
+		--NeedleFlame_;
 
+		if (NeedleFlame_ <= 0) {
+
+			NeedleFloorFlag_ = true;
+		}
+	}
+
+	if (NeedleFloorFlag_ == true) {
+
+		worldTransformNeedleFloor_.translation_.y += 1;
+
+		if (worldTransformNeedleFloor_.translation_.y >= 10) {
+
+			worldTransformNeedleFloor_.translation_.y = -10;
+
+			NeedleFlame_ = 240;
+			NeedleFloorFlag_ = false;
+		}
+	}
 }

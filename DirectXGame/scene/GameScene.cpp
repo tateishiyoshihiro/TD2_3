@@ -31,12 +31,27 @@ void GameScene::Initialize() {
 
 	//チュートリアルステージ２
 
+	modelStage_T2_.reset(Model::CreateFromOBJ("ground", true));
+
+	stage_T2_ = std::make_unique<Stage_2>();
+
+	stage_T2_->Initialize(modelStage_T2_.get());
+
+	//ゲームステージ　１
+
+
+	//ゲームステージ　２
+
+
+	//エクストラステージ？？？（未定）
 
 }
 
 void GameScene::Update() {
 
 	stage_T1_->Update();
+
+	stage_T2_->Update();
 }
 
 void GameScene::Draw() {
@@ -67,6 +82,8 @@ void GameScene::Draw() {
 	/// </summary>
 
 	stage_T1_->Draw(viewProjection_);
+
+	stage_T2_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

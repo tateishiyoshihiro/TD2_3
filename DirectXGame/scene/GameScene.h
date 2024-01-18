@@ -11,6 +11,7 @@
 #include "WorldTransform.h"
 
 #include "Stage.h"
+#include "Stage_2.h"
 
 /// <summary>
 /// ゲームシーン
@@ -60,6 +61,16 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelStage_T1_;
 
 	//チュートリアルステージ２
+
+	std::unique_ptr<Stage_2> stage_T2_;
+
+	std::unique_ptr<Model> modelStage_T2_;
+
+	// ゲームステージ　１
+
+	// ゲームステージ　２
+
+	// エクストラステージ？？？（未定）
 
 	// viewProjectionの初期化？
 	ViewProjection viewProjection_;
