@@ -39,6 +39,19 @@ void Player::Initalize(const std::vector<Model*>& models) {
 
 void Player::Update() {
 
+	  // デスフラグの立った弾を削除
+	card_.remove_if([](Card* card) {
+		if (card->IsDead()) {
+			delete card;
+
+			return true;
+		}
+		return false;
+	});
+		
+		
+	
+
 if (behaviorRequest_) {
 
 		behavior_ = behaviorRequest_.value();
@@ -87,12 +100,16 @@ if (behaviorRequest_) {
 	}
 
 	
-
 	for (int i = 0; i < 4; i++) {
 
 		worldTransform_[i].UpdateMatrix();
 	}
 	
+	/*	Attack();
+
+	for (Card* card : card_) {
+		card->Update();
+	}*/
 
 }
 
@@ -102,10 +119,21 @@ void Player::Draw(ViewProjection& viewProjection) {
 		models_[i]->Draw(worldTransform_[i], viewProjection);
 	}
 
+	 for (Card* card : card_) {
+		card->Update();
+	}
 
 }
 
 
+
+Player::~Player() {
+	for (Card* card : card_) {
+
+		delete card;
+	}
+
+}
 
 void Player::BehaviorRootUpdate() {
 
@@ -247,6 +275,61 @@ void Player::BehaviorJumpUpdate() {
 	}
 
 
+
+
+}
+
+Vector3 Player::GetWorldPosition() { 
+
+	   Vector3 worldPos = {};
+
+	worldPos.x = worldTransform_[0].matWorld_.m[3][0];
+	worldPos.y = worldTransform_[0].matWorld_.m[3][1];
+	worldPos.z = worldTransform_[0].matWorld_.m[3][2];
+
+	return worldPos;
+
+
+}
+
+void Player::Attack() {
+
+XINPUT_STATE joyState;
+
+	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
+
+		  return;
+	}
+
+	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+
+		  const float kCardSpeed = 1.0f;
+		  Vector3 velocity(0, kCardSpeed,0 );
+
+		  Vector3 playerWorld = GetWorldPosition();
+
+		  if (velocity_.y <= -1) {
+
+			velocity.y = -kCardSpeed;
+		  } else {
+		  
+		  	  velocity.y = kCardSpeed;
+		  }
+
+		  velocity = Multiply(kCardSpeed, Normalize(velocity));
+
+		  velocity = TransformNormal(velocity, worldTransform_[0].matWorld_);
+
+		 Card* newCard_ = new Card();
+
+		 
+		 newCard_->Initialize(playerWorld, velocity);
+		
+
+		 card_.push_back(newCard_);
+		 
+		 sw = true;
+	}
 
 
 }

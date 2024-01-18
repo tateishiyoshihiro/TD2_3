@@ -9,6 +9,7 @@
 #include "Func.h"
 
 #include "BaseCharacter.h"
+#include "Card.h"
 
 class Player : public BaseCharacter {
 	enum class Behavior {
@@ -29,7 +30,7 @@ public:
 		viewProjection_ = viewProjection;
 	}
 
-	//Vector3 GetWorldPosition();
+	 ~Player();
 
 	// 通常行動更新
 	void BehaviorRootUpdate();
@@ -46,6 +47,10 @@ public:
 	// ジャンプ行動更新
 	void BehaviorJumpUpdate();
 
+	Vector3 GetWorldPosition();
+
+	void Attack();
+
 private:
 	WorldTransform worldTransform_[4];
 
@@ -61,6 +66,11 @@ private:
 	Behavior behavior_ = Behavior::kRoot;
 
 	std::optional<Behavior> behaviorRequest_ = std::nullopt;
+
+
+	std::list <Card*> card_;
+
+	bool sw = false;
 
 	float X = 0;
 	float Ease = 0;
