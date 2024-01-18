@@ -11,6 +11,46 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	   // 3Dモデル
+
+	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
+	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
+	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
+	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
+
+	viewProjection_.Initialize();
+
+	followCamera_ = std::make_unique<FollowCamera>();
+
+	followCamera_->Initialize();
+
+
+	player_ = std::make_unique<Player>();
+
+	std::vector<Model*> plyerModels = {
+	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
+	    modelFighterR_arm_.get()};
+
+	player_->Initalize(plyerModels);
+
+	followCamera_->SetTarget(&player_->GetWorldTransform());
+
+	player_->SetViewProjection(&followCamera_->GetViewProjection());
+
+
+}
+
+void GameScene::Update() {
+
+
+	player_->Update();
+
+  #ifdef _DEBUG
+
+	if (input_->PushKey(DIK_SPACE)) {
+		isDebugCameraActive_ = true;
+	}
 	model_ = Model::Create();
 
 	viewProjection_.Initialize();
@@ -29,6 +69,15 @@ void GameScene::Initialize() {
 	enemyRed_->Initialize(enemyRedModels);
 }
 
+#endif // DEBUG
+	
+		followCamera_->Update();
+		viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
+		viewProjection_.matView = followCamera_->GetViewProjection().matView;
+
+		viewProjection_.TransferMatrix();
+	
+}
 void GameScene::Update() {
 
 	enemy_->Update();
@@ -63,6 +112,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	player_->Draw(viewProjection_);
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
