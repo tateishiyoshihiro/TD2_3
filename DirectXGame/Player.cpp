@@ -255,6 +255,8 @@ void Player::BehaviorJumpUpdate() {
 
 	worldTransform_[0].translation_.y += velocity_.y;
 
+	worldTransform_[0].translation_.z += velocity_.z;
+
 	const float kGravityAcceleration = 0.06f;
 
 	Vector3 accelerationVector = {0, -kGravityAcceleration, 0};
