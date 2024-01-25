@@ -84,18 +84,16 @@ void GameScene::Update() {
 	stage_T2_->Update();
 	player_->Update();
 	followCamera_->Update();
+	
+	
 	viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
 	viewProjection_.matView = followCamera_->GetViewProjection().matView;
 
 	viewProjection_.TransferMatrix();
 
-  #ifdef _DEBUG
+  
 
-	if (input_->PushKey(DIK_SPACE)) {
-		isDebugCameraActive_ = true;
-	}
-
-	viewProjection_.UpdateMatrix();
+	
 
 	
 	
@@ -104,8 +102,7 @@ void GameScene::Update() {
 	
 
 
-#endif // DEBUG
-	
+
 		
 	
 

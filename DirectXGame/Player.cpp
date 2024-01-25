@@ -164,22 +164,23 @@ void Player::BehaviorRootUpdate() {
 
 		velocity_ = TransformNormal(velocity_, rotateXYZMatrix);
 
-		if (velocity_.x != 0 && velocity_.x >= 0.01) {
-
-			
+		/*if (velocity_.x != 0 && velocity_.x >= 0.01) {
 				worldTransform_[0].rotation_.y = 1.57f;
-			
 		} else if (velocity_.x != 0 && velocity_.x <= -0.01)
-		{
 			    worldTransform_[0].rotation_.y =- 1.57f;
+		}*/
 
+		if (velocity_.x != 0 || velocity_.z != 0) {
+			worldTransform_[0].rotation_.y = std::atan2(velocity_.x, velocity_.z);
 		}
+
+
 	}
 
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += velocity_.x;
 		worldTransform_[0].translation_.y += velocity_.y;
-		//worldTransform_[0].translation_.z += velocity_.z;
+		worldTransform_[0].translation_.z += velocity_.z;
 
 		worldTransform_[i].UpdateMatrix();
 	}
