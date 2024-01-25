@@ -8,14 +8,10 @@
 #include "Input.h"
 class BaseCharacter {
 protected:
-	//モデルデータ配列
-	std::vector<Model*> models_;
-	//ワールド変換データ
-	WorldTransform worldTransform_;
+	
 
 	//メンバ変数
 public:
-	virtual void Initalize(const std::vector<Model*>& models);
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -27,7 +23,6 @@ public:
 	/// </summary>
 	virtual void Update();
 
-	virtual void Draw(ViewProjection& viewProjection);
 
 	/// <summary>
 	/// 描画

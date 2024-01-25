@@ -9,6 +9,7 @@ GameScene::~GameScene() {
 }
 
 void GameScene::Initialize() {
+	worldTransform_.Initialize();
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
@@ -24,9 +25,11 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	followCamera_ = std::make_unique<FollowCamera>();
-
+		//ステージの初期化
+	stage_T1_->Initialize(modelStage_T1_.get());
+	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
+	
 	followCamera_->Initialize();
-
 
 	player_ = std::make_unique<Player>();
 
@@ -34,7 +37,15 @@ void GameScene::Initialize() {
 	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
 	    modelFighterR_arm_.get()};
 
-	player_->Initalize(plyerModels);
+	player_->Initialize(plyerModels);
+
+	enemy_ = std::make_unique<Enemy>();
+	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
+	enemy_->Initialize(enemyModels);
+
+	enemyRed_ = std::make_unique<EnemyRed>();
+	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
+	enemyRed_->Initialize(enemyRedModels);
 
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 
@@ -45,8 +56,17 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 
+	enemy_->Update();
+	enemyRed_->Update();
+	stage_T1_->Update();
 
+	stage_T2_->Update();
 	player_->Update();
+	followCamera_->Update();
+	viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
+	viewProjection_.matView = followCamera_->GetViewProjection().matView;
+
+	viewProjection_.TransferMatrix();
 
   #ifdef _DEBUG
 
@@ -55,7 +75,7 @@ void GameScene::Update() {
 	}
 	model_ = Model::Create();
 
-	viewProjection_.Initialize();
+	
 	viewProjection_.UpdateMatrix();
 
 	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
@@ -67,22 +87,24 @@ void GameScene::Update() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
-	viewProjection_.Initialize();
+	enemy_ = std::make_unique<Enemy>();
+	enemyRed_ = std::make_unique<EnemyRed>();
+
+	
 
 	//チュートリアルステージ１
 
 	//ステージのモデルの初期化
-	modelStage_T1_.reset(Model::CreateFromOBJ("ground", true));
+	modelStage_T1_.reset(Model::CreateFromOBJ("T_stage_01", true));
 
 	//ステージの生成
 	stage_T1_ = std::make_unique<Stage>();
-	//ステージの初期化
-	stage_T1_->Initialize(modelStage_T1_.get());
+	
 
 	//チュートリアルステージ２
 
 	//ステージ
-	modelStage_T2_.reset(Model::CreateFromOBJ("ground", true));
+	modelStage_T2_.reset(Model::CreateFromOBJ("T_stage_02", true));
 
 	//トラップ、ギミックなど
 	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
@@ -90,7 +112,7 @@ void GameScene::Update() {
 
 	stage_T2_ = std::make_unique<Stage_2>();
 
-	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
+	
 
 	//ゲームステージ　１
 
@@ -102,33 +124,15 @@ void GameScene::Update() {
 
 }
 
-	enemy_ = std::make_unique<Enemy>();
-	enemyRed_ = std::make_unique<EnemyRed>();
+	
 
-	enemy_->Initialize(enemyModels);
-	enemyRed_->Initialize(enemyRedModels);
-}
 
 #endif // DEBUG
 	
-		followCamera_->Update();
-		viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
-		viewProjection_.matView = followCamera_->GetViewProjection().matView;
-
-		viewProjection_.TransferMatrix();
+		
 	
-}
-void GameScene::Update() {
 
-	enemy_->Update();
-	enemyRed_->Update();
-}
-void GameScene::Update() {
 
-	stage_T1_->Update();
-
-	stage_T2_->Update();
-}
 
 void GameScene::Draw() {
 

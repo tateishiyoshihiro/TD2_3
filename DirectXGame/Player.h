@@ -20,11 +20,11 @@ class Player : public BaseCharacter {
 	};
 
 public:
-	void Initalize(const std::vector<Model*>& models) override;
+	void Initialize(const std::vector<Model*>& models) override;
 
 	void Update() override;
 
-	void Draw(ViewProjection& viewProjection) override;
+	void Draw(const ViewProjection& viewProjection) override;
 
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;

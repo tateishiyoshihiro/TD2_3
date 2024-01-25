@@ -2,7 +2,7 @@
 #include <cassert>
 
 void Stage::Initialize(Model* model) {
-
+	
 	assert(model);
 
 	model_ = model;

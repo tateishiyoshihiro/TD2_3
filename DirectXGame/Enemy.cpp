@@ -1,9 +1,10 @@
 ﻿#include "Enemy.h"
-#include "MathUtilityForText.h"
+#include "Func.h"
 
  void Enemy::Initialize(const std::vector<Model*>& models) {
 	//
 	 BaseCharacter::Initialize(models);
+	 worldTransform_.Initialize();
 	 worldTransformEnemy_Body_.Initialize();
  }
 

@@ -520,5 +520,33 @@ Vector3 Add(const Vector3& v1, float v2) {
 	return A;
 }
 
+Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
+	Matrix4x4 result{1.0f, 0.0f, 0.0f, 0.0f, 0.0f,        1.0f,        0.0f,        0.0f,
+	                 0.0f, 0.0f, 1.0f, 0.0f, translate.x, translate.y, translate.z, 1.0f};
 
+	return result;
+}
 
+Matrix4x4 MakeRotateMatrix(const Vector3& r) {
+	Matrix4x4 result;
+	Matrix4x4 rotatex = MakeRotateXMatrix(r.x);
+	Matrix4x4 rotatey = MakeRotateYMatrix(r.y);
+	Matrix4x4 rotatez = MakeRotateZMatrix(r.z);
+	result = Multiply(rotatex, Multiply(rotatey, rotatez));
+	return result;
+}
+
+Matrix4x4 MakeIdentityMatrix() {
+	static const Matrix4x4 result{1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+	                              0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f};
+
+	return result;
+}
+
+Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
+
+	Matrix4x4 result{scale.x, 0.0f, 0.0f,    0.0f, 0.0f, scale.y, 0.0f, 0.0f,
+	                 0.0f,    0.0f, scale.z, 0.0f, 0.0f, 0.0f,    0.0f, 1.0f};
+
+	return result;
+}

@@ -4,16 +4,14 @@
 #include "math.h"
 #include "ImGuiManager.h"
 
-void Player::Initalize(const std::vector<Model*>& models) {
+void Player::Initialize(const std::vector<Model*>& models) {
 
-	   BaseCharacter::Initalize(models);
+	   BaseCharacter::Initialize(models);
 
 	// 親子関係の設定
 	worldTransform_[1].parent_ = &worldTransform_[0];
 	worldTransform_[2].parent_ = &worldTransform_[0];
 	worldTransform_[3].parent_ = &worldTransform_[0];
-
-	
 
 	worldTransform_[0].scale_ = {3.0f, 3.0f, 3.0f};
 	worldTransform_[0].rotation_ = {0.0f, 0.0f, 0.0f};
@@ -49,9 +47,6 @@ void Player::Update() {
 		return false;
 	});
 		
-		
-	
-
 if (behaviorRequest_) {
 
 		behavior_ = behaviorRequest_.value();
@@ -95,11 +90,8 @@ if (behaviorRequest_) {
 		BehaviorJumpUpdate();
 
 		break;
-
-
 	}
 
-	
 	for (int i = 0; i < 4; i++) {
 
 		worldTransform_[i].UpdateMatrix();
@@ -113,7 +105,7 @@ if (behaviorRequest_) {
 
 }
 
-void Player::Draw(ViewProjection& viewProjection) {
+void Player::Draw(const ViewProjection& viewProjection) {
 
 	 for (int i = 0; i < 4; i++) {
 		models_[i]->Draw(worldTransform_[i], viewProjection);
@@ -124,8 +116,6 @@ void Player::Draw(ViewProjection& viewProjection) {
 	}
 
 }
-
-
 
 Player::~Player() {
 	for (Card* card : card_) {
@@ -142,12 +132,7 @@ void Player::BehaviorRootUpdate() {
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
 
-	
-
-
 	XINPUT_STATE joyState;
-
-	
 
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 
@@ -163,8 +148,6 @@ void Player::BehaviorRootUpdate() {
 
 			behaviorRequest_ = Behavior::kJump;
 		}
-
-		
 
 		// move = Multiply(kCharacterSpeed, Normalize(move));
 
@@ -184,8 +167,6 @@ void Player::BehaviorRootUpdate() {
 		}
 	}
 
-	
-
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += velocity_.x;
 		worldTransform_[0].translation_.y += velocity_.y;
@@ -198,10 +179,6 @@ void Player::BehaviorRootUpdate() {
 void Player::BehaviorAttackUpdate() {
 
 	X += 0.05f;
-
-	
-
-	
 
 	if (X >= 2.6) {
 
@@ -234,24 +211,19 @@ void Player::BehaviorAttackInitialize() {
 	worldTransform_[3].rotation_ = {3.0f, 0.0f, 0.0f};
 	worldTransform_[3].translation_ = {0.51f, 1.26f, 0.0f};
 
-	
 	X = 0;
 }
 
 void Player::BehaviorJumpInitialize() {
 	worldTransform_[0].translation_.y = 0.0f;
 
-	
 	worldTransform_[2].rotation_.x = 0;
 	;
 	worldTransform_[3].rotation_.x = 0;
 	
 	const float kJumpFirstSpeed = 1.0f;
 
-
-
 	velocity_.y =  kJumpFirstSpeed;
-
 
 }
 
@@ -271,12 +243,7 @@ void Player::BehaviorJumpUpdate() {
 		worldTransform_[0].translation_.y = 0;
 	
 		  behaviorRequest_ = Behavior::kRoot;
-	
 	}
-
-
-
-
 }
 
 Vector3 Player::GetWorldPosition() { 
@@ -288,8 +255,6 @@ Vector3 Player::GetWorldPosition() {
 	worldPos.z = worldTransform_[0].matWorld_.m[3][2];
 
 	return worldPos;
-
-
 }
 
 void Player::Attack() {
@@ -322,14 +287,10 @@ XINPUT_STATE joyState;
 
 		 Card* newCard_ = new Card();
 
-		 
 		 newCard_->Initialize(playerWorld, velocity);
 		
-
 		 card_.push_back(newCard_);
 		 
 		 sw = true;
 	}
-
-
 }

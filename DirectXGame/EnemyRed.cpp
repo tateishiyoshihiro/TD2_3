@@ -1,12 +1,11 @@
 ﻿#include "EnemyRed.h"
-#include "MathUtilityForText.h"
 
  void EnemyRed::Initialize(const std::vector<Model*>& models) {
 	//
 	BaseCharacter::Initialize(models);
-	worldTransformEnemyRed_Body_.Initialize();
+	worldTransform_.Initialize();
 
-	
+	worldTransformEnemyRed_Body_.Initialize();
 	worldTransformEnemyRed_Body_.translation_.z = -35.0f;
  }
 
