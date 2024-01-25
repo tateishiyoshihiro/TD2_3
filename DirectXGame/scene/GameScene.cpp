@@ -16,18 +16,32 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	   // 3Dモデル
+	// ステージのモデルの初期化
+	modelStage_T1_.reset(Model::CreateFromOBJ("T_stage_01", true));
+
+	// チュートリアルステージ２
+
+	// ステージ
+	modelStage_T2_.reset(Model::CreateFromOBJ("T_stage_02", true));
+
+	// トラップ、ギミックなど
+	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
+	modelNeedleFloor_.reset(Model::CreateFromOBJ("ground", true));
 
 	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
 	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
 	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
 
+	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
+	modelFighterEnemyRedBody_.reset(Model::CreateFromOBJ("needle_L_arm", true));
+	
+
 	viewProjection_.Initialize();
 
 	followCamera_ = std::make_unique<FollowCamera>();
 		//ステージの初期化
-	stage_T1_->Initialize(modelStage_T1_.get());
-	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
+	
 	
 	followCamera_->Initialize();
 
@@ -51,7 +65,14 @@ void GameScene::Initialize() {
 
 	player_->SetViewProjection(&followCamera_->GetViewProjection());
 
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
+	stage_T1_ = std::make_unique<Stage>();
+	stage_T1_->Initialize(modelStage_T1_.get());
+
+	stage_T2_ = std::make_unique<Stage_2>();
+	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
 }
 
 void GameScene::Update() {
@@ -73,55 +94,11 @@ void GameScene::Update() {
 	if (input_->PushKey(DIK_SPACE)) {
 		isDebugCameraActive_ = true;
 	}
-	model_ = Model::Create();
 
-	
 	viewProjection_.UpdateMatrix();
 
-	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
-	modelFighterEnemyRedBody_.reset(Model::CreateFromOBJ("needle_L_arm", true));
-	//
-	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
-	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
-
-	AxisIndicator::GetInstance()->SetVisible(true);
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-
-	enemy_ = std::make_unique<Enemy>();
-	enemyRed_ = std::make_unique<EnemyRed>();
-
 	
-
-	//チュートリアルステージ１
-
-	//ステージのモデルの初期化
-	modelStage_T1_.reset(Model::CreateFromOBJ("T_stage_01", true));
-
-	//ステージの生成
-	stage_T1_ = std::make_unique<Stage>();
 	
-
-	//チュートリアルステージ２
-
-	//ステージ
-	modelStage_T2_.reset(Model::CreateFromOBJ("T_stage_02", true));
-
-	//トラップ、ギミックなど
-	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
-	modelNeedleFloor_.reset(Model::CreateFromOBJ("ground", true));
-
-	stage_T2_ = std::make_unique<Stage_2>();
-
-	
-
-	//ゲームステージ　１
-
-
-	//ゲームステージ　２
-
-
-	//エクストラステージ？？？（未定）
-
 }
 
 	
