@@ -49,6 +49,10 @@ public:
 
 	Vector3 GetWorldPosition();
 
+	Vector3 GetWorldCardPosition();
+
+	const WorldTransform& GetWorldTransform() { return worldTransform_[0]; }
+
 	void Attack();
 
 private:
@@ -76,5 +80,8 @@ private:
 	float Ease = 0;
    //速度
 	Vector3 velocity_ = {};
+
+	XINPUT_STATE joyStatePre;
+	XINPUT_STATE joyState;
 
 };

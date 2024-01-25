@@ -23,7 +23,9 @@ void Card::Update() {
 
 	worldTransform_.UpdateMatrix();
 
+	worldTransform_.translation_.x += velocity_.x;
 	worldTransform_.translation_.y += velocity_.y;
+	worldTransform_.translation_.z += velocity_.z;
 
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;

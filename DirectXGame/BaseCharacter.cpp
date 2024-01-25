@@ -1,5 +1,6 @@
 ﻿#include "BaseCharacter.h"
 
+void BaseCharacter::Initalize(const std::vector<Model*>& models) {
 
 
 void BaseCharacter::Initialize(const std::vector<Model*>& models) { 
