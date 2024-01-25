@@ -6,7 +6,7 @@
 
 void Player::Initialize(const std::vector<Model*>& models) {
 
-	   BaseCharacter::Initalize(models);
+	   BaseCharacter::Initialize(models);
 
 	// 親子関係の設定
 	worldTransform_[1].parent_ = &worldTransform_[0];

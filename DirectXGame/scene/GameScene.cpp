@@ -32,7 +32,7 @@ void GameScene::Initialize() {
 	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
 	    modelFighterR_arm_.get()};
 
-	player_->Initalize(plyerModels);
+	player_->Initialize(plyerModels);
 
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 

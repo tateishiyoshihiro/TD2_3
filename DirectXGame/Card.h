@@ -29,7 +29,7 @@ class Card {
 
 	  uint32_t textureHandle_ = 0u;
 
-	   static const int32_t kLifeTime = 10;
+	   static const int32_t kLifeTime = 20;
 
 	   // デスタイマー
 	   int32_t deathTimer_ = kLifeTime;
