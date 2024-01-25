@@ -4,7 +4,7 @@
 #include "math.h"
 #include "ImGuiManager.h"
 
-void Player::Initalize(const std::vector<Model*>& models) {
+void Player::Initialize(const std::vector<Model*>& models) {
 
 	   BaseCharacter::Initalize(models);
 
@@ -105,11 +105,11 @@ if (behaviorRequest_) {
 		worldTransform_[i].UpdateMatrix();
 	}
 	
-	/*	Attack();
+		
 
 	for (Card* card : card_) {
 		card->Update();
-	}*/
+	}
 
 }
 
@@ -120,7 +120,7 @@ void Player::Draw(ViewProjection& viewProjection) {
 	}
 
 	 for (Card* card : card_) {
-		card->Update();
+		card->Draw(viewProjection);
 	}
 
 }
@@ -139,21 +139,23 @@ void Player::BehaviorRootUpdate() {
 
 	BaseCharacter::Update();
 
+	Attack();
+
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
 
 	
 
 
-	XINPUT_STATE joyState;
+	
 
 	
 
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 
 		velocity_ = {
-		    (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed, 0.0f,
-		    (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed};
+		    (float)joyState.Gamepad.sThumbLX / SHRT_MAX , 0.0f,
+		    (float)joyState.Gamepad.sThumbLY / SHRT_MAX };
 
 		if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
@@ -166,7 +168,7 @@ void Player::BehaviorRootUpdate() {
 
 		
 
-		// move = Multiply(kCharacterSpeed, Normalize(move));
+		 velocity_ = Multiply(kCharacterSpeed, Normalize(velocity_));
 
 		Matrix4x4 rotateXMatrix = MakeRotateXMatrix(viewProjection_->rotation_.x);
 		Matrix4x4 rotateYMatrix = MakeRotateYMatrix(viewProjection_->rotation_.y);
@@ -176,11 +178,15 @@ void Player::BehaviorRootUpdate() {
 
 		velocity_ = TransformNormal(velocity_, rotateXYZMatrix);
 
-		if (velocity_.x != 0 || velocity_.z != 0) {
+		if (velocity_.x != 0 && velocity_.x >= 0.01) {
 
-			for (int i = 0; i < 4; i++) {
-				worldTransform_[0].rotation_.y = std::atan2(velocity_.x, velocity_.z);
-			}
+			
+				worldTransform_[0].rotation_.y = 1.57f;
+			
+		} else if (velocity_.x != 0 && velocity_.x <= -0.01)
+		{
+			    worldTransform_[0].rotation_.y =- 1.57f;
+
 		}
 	}
 
@@ -193,15 +199,23 @@ void Player::BehaviorRootUpdate() {
 
 		worldTransform_[i].UpdateMatrix();
 	}
+
+	#ifdef _DEBUG
+	ImGui::Begin("Player");
+
+	 ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
+	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
+	 ImGui::DragFloat3("Rotation", &worldTransform_[0].translation_.x, 0.01f);
+
+	ImGui::End();
+
+#endif
+
 }
 
 void Player::BehaviorAttackUpdate() {
 
 	X += 0.05f;
-
-	
-
-	
 
 	if (X >= 2.6) {
 
@@ -292,28 +306,42 @@ Vector3 Player::GetWorldPosition() {
 
 }
 
+Vector3 Player::GetWorldCardPosition() {
+	Vector3 worldPos = {};
+
+	worldPos.x = worldTransform_[0].matWorld_.m[3][0];
+	worldPos.y = worldTransform_[0].matWorld_.m[3][1] + 5;
+	worldPos.z = worldTransform_[0].matWorld_.m[3][2];
+
+	return worldPos;
+}
+
 void Player::Attack() {
 
-XINPUT_STATE joyState;
+
+	
 
 	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
 
 		  return;
 	}
+	Input::GetInstance()->GetJoystickStatePrevious(0, joyStatePre);
+	
 
-	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+	if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_RIGHT_SHOULDER &&
+	    joyStatePre.Gamepad.wButtons != XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 
 		  const float kCardSpeed = 1.0f;
-		  Vector3 velocity(0, kCardSpeed,0 );
+		  Vector3 velocity(0, 0, kCardSpeed);
 
-		  Vector3 playerWorld = GetWorldPosition();
+		  Vector3 playerWorld = GetWorldCardPosition();
 
-		  if (velocity_.y <= -1) {
+		  if (velocity_.z<= -1) {
 
-			velocity.y = -kCardSpeed;
+			velocity.z = -kCardSpeed;
 		  } else {
 		  
-		  	  velocity.y = kCardSpeed;
+		  	  velocity.z = kCardSpeed;
 		  }
 
 		  velocity = Multiply(kCardSpeed, Normalize(velocity));
@@ -321,7 +349,7 @@ XINPUT_STATE joyState;
 		  velocity = TransformNormal(velocity, worldTransform_[0].matWorld_);
 
 		 Card* newCard_ = new Card();
-
+											
 		 
 		 newCard_->Initialize(playerWorld, velocity);
 		
