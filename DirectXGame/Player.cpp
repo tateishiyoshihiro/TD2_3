@@ -134,7 +134,7 @@ void Player::BehaviorRootUpdate() {
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
 
-	XINPUT_STATE joyState;
+	//XINPUT_STATE joyState;
 
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 
