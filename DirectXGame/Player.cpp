@@ -92,6 +92,14 @@ if (behaviorRequest_) {
 		break;
 	}
 
+	const float kMoveLimitZ = 4;
+	// const float kMoveLimitX = 18;
+
+	worldTransform_[0].translation_.z = max(worldTransform_[0].translation_.z, -kMoveLimitZ);
+	worldTransform_[0].translation_.z = min(worldTransform_[0].translation_.z, +kMoveLimitZ);
+	// worldTransform_[0].translation_.x = max(worldTransform_[0].translation_.x, -kMoveLimitX);
+	// worldTransform_[0].translation_.x = min(worldTransform_[0].translation_.x, +kMoveLimitX);
+
 	for (int i = 0; i < 4; i++) {
 
 		worldTransform_[i].UpdateMatrix();
@@ -177,6 +185,8 @@ void Player::BehaviorRootUpdate() {
 
 	}
 
+	
+
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += velocity_.x;
 		worldTransform_[0].translation_.y += velocity_.y;
@@ -190,7 +200,7 @@ void Player::BehaviorRootUpdate() {
 
 	 ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
 	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
-	 ImGui::DragFloat3("Rotation", &worldTransform_[0].translation_.x, 0.01f);
+	 ImGui::DragFloat3("Translation", &worldTransform_[0].translation_.x, 0.01f);
 
 	ImGui::End();
 
