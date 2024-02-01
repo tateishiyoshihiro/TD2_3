@@ -51,8 +51,12 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 	ViewProjection viewProjection_;
 	// 3Dモデル
-	std::unique_ptr<Model> modelFighterEnemyBody_;// 体 
-	std::unique_ptr<Model> modelFighterEnemyRedBody_;
+	std::unique_ptr<Model> modelFighterEnemyHead_; // 体
+	std::unique_ptr<Model> modelFighterEnemyL_;
+	std::unique_ptr<Model> modelFighterEnemyR_;
+	std::unique_ptr<Model> modelFighterEnemyRedHead_;
+	std::unique_ptr<Model> modelFighterEnemyRedL_;
+	std::unique_ptr<Model> modelFighterEnemyRedR_;
 	std::unique_ptr<Model> modelEnemy_;
 	
 

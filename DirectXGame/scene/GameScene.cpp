@@ -16,16 +16,23 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	viewProjection_.UpdateMatrix();
 
-	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
-	modelFighterEnemyRedBody_.reset(Model::CreateFromOBJ("needle_L_arm", true));
+	modelFighterEnemyHead_.reset(Model::CreateFromOBJ("BlackHead", true));
+	modelFighterEnemyL_.reset(Model::CreateFromOBJ("BlackL", true));
+	modelFighterEnemyR_.reset(Model::CreateFromOBJ("BlackR", true));
+	modelFighterEnemyRedHead_.reset(Model::CreateFromOBJ("RedHead", true));
+	modelFighterEnemyRedL_.reset(Model::CreateFromOBJ("RedL", true));
+	modelFighterEnemyRedR_.reset(Model::CreateFromOBJ("RedR", true));
 	//
-	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
-	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
+	std::vector<Model*> enemyModels = {
+	    modelFighterEnemyHead_.get(), modelFighterEnemyL_.get(),
+		modelFighterEnemyR_.get()};
+	std::vector<Model*> enemyRedModels = {
+	    modelFighterEnemyRedHead_.get(), modelFighterEnemyRedL_.get(),
+	    modelFighterEnemyRedR_.get()};
 
 	enemy_ = std::make_unique<Enemy>();
-	enemyRed_ = std::make_unique<EnemyRed>();
-
 	enemy_->Initialize(enemyModels);
+	enemyRed_ = std::make_unique<EnemyRed>();
 	enemyRed_->Initialize(enemyRedModels);
 }
 

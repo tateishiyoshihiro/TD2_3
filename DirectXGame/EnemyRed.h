@@ -23,12 +23,20 @@ public:
 	void Draw(const ViewProjection& viewProjection) override;
 
 private:
+	enum ModelPartsIndex {
+		kEnemyRedHeadIndex,
+		kEnemyRedLIndex,
+		kEnemyRedRIndex,
+	};
 	// ワールド変換データ
 	WorldTransform worldTransform_;
-	WorldTransform worldTransformEnemyRed_Body_;
-	//  モデル
-	Model* model_ = nullptr;
+	WorldTransform worldTransformEnemyRed_Head_;
+	WorldTransform worldTransformEnemyRed_L_;
+	WorldTransform worldTransformEnemyRed_R_;
+	
 	// 3Dモデル
-	Model* modelFighterEnemyRedBody_;
+	Model* modelFighterEnemyRedHead_;
+	Model* modelFighterEnemyRedL_;
+	Model* modelFighterEnemyRedR_;
 	float enemyRedSpeed_ = -0.054f;
 };
