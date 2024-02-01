@@ -13,8 +13,9 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	model_ = Model::Create();
 
+	viewProjection_.translation_.y = -2.0f;
+	viewProjection_.translation_.z = -3.0f;
 	viewProjection_.Initialize();
-	viewProjection_.UpdateMatrix();
 
 	modelFighterEnemyHead_.reset(Model::CreateFromOBJ("BlackHead", true));
 	modelFighterEnemyL_.reset(Model::CreateFromOBJ("BlackL", true));
@@ -38,6 +39,7 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 
+	viewProjection_.UpdateMatrix();
 	enemy_->Update();
 	enemyRed_->Update();
 }

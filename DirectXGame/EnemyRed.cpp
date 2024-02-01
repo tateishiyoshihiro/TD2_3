@@ -12,16 +12,12 @@
 	worldTransformEnemyRed_L_.Initialize();
 	worldTransformEnemyRed_R_.Initialize();
 	
-	worldTransformEnemyRed_Head_.translation_.z = -35.0f;
+	worldTransformEnemyRed_Head_.translation_.z = 0.0f;
  }
 
 void EnemyRed::Update() {
-	// 行列を定数バッファに転送
-	worldTransformEnemyRed_Head_.UpdateMatrix();
-	worldTransformEnemyRed_L_.UpdateMatrix();
-	worldTransformEnemyRed_R_.UpdateMatrix();
 	// 速さ
-	worldTransformEnemyRed_Head_.translation_.x += enemyRedSpeed_;
+	/*worldTransformEnemyRed_Head_.translation_.x += enemyRedSpeed_;
 	worldTransformEnemyRed_Head_.translation_.x =
 	    worldTransformEnemyRed_Head_.translation_.x + enemyRedSpeed_;
 	if (worldTransformEnemyRed_Head_.translation_.x >= 5.0f) {
@@ -29,9 +25,13 @@ void EnemyRed::Update() {
 	}
 	if (worldTransformEnemyRed_Head_.translation_.x <= -5.0f) {
 		enemyRedSpeed_ = 0.054f;
-	}
+	}*/
 	//
 	BaseCharacter::Update();
+	// 行列を定数バッファに転送
+	worldTransformEnemyRed_Head_.UpdateMatrix();
+	worldTransformEnemyRed_L_.UpdateMatrix();
+	worldTransformEnemyRed_R_.UpdateMatrix();
 }
 
 void EnemyRed::Draw(const ViewProjection& viewProjection) {
