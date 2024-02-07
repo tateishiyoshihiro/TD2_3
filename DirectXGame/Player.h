@@ -62,6 +62,8 @@ public:
 
 	void HitJudgmentStage1();
 
+	void Reset();
+
 private:
 	WorldTransform worldTransform_[4];
 

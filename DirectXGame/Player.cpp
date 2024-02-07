@@ -15,7 +15,7 @@ void Player::Initialize(const std::vector<Model*>& models) {
 
 	worldTransform_[0].scale_ = {3.0f, 3.0f, 3.0f};
 	worldTransform_[0].rotation_ = {0.0f, 0.0f, 0.0f};
-	worldTransform_[0].translation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_[0].translation_ = {-40.0f, 0.0f, 0.0f};
 
 	worldTransform_[1].scale_ = {1.0f, 1.0f, 1.0f};
 	worldTransform_[1].rotation_ = {0.0f, 0.0f, 0.0f};
@@ -402,6 +402,14 @@ void Player::HitJudgmentStage1() {
 
 
 
+
+}
+
+void Player::Reset() {
+
+	worldTransform_[0].scale_ = {3.0f, 3.0f, 3.0f};
+	    worldTransform_[0].rotation_ = {0.0f, 0.0f, 0.0f};
+	    worldTransform_[0].translation_ = {-40.0f, 0.0f, 0.0f};
 
 }
 
