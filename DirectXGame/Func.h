@@ -47,4 +47,30 @@ Matrix4x4 MakeOrthographicMatrix(
     float left, float top, float right, float bottom, float nearClip, float farClip);
 Matrix4x4 MakeViewportMatrix(
     float left, float top, float width, float height, float minDepth, float maxDepth);
+                                                                                        
+  struct ShortForm final {
+	Vector3 minLeftBotom;
+	Vector3 minRightBotom;
+	Vector3 minLeftTop;
+	Vector3 minRightTop;
+
+	Vector3 maxLeftBotom;
+	Vector3 maxRightBotom;
+	Vector3 maxLeftTop;
+	Vector3 maxRightTop;
+};
+  struct AABB {
+	Vector3 min;
+	Vector3 max;
+  };
+
+   // >
+   bool CheckHitVector3Max(const Vector3& A, const Vector3& B);
+   // <
+   bool CheckHitVector3Min(const Vector3& A, const Vector3& B);
+
+
+  bool CheckHitSide(const ShortForm& A, const ShortForm& B);
+
+  bool CheckHitVertical(const ShortForm& A, const ShortForm& B);
 

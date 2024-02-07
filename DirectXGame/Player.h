@@ -19,6 +19,8 @@ class Player : public BaseCharacter {
 
 	};
 
+	
+
 public:
 	void Initialize(const std::vector<Model*>& models) override;
 
@@ -55,10 +57,39 @@ public:
 
 	void Attack();
 
+	void HitJudgmentStage1();
+
 private:
 	WorldTransform worldTransform_[4];
 
+	Vector3 playerFromMin = {
+	    worldTransform_[0].translation_.x - 1.0f,
+	    worldTransform_[0].translation_.y,
+	    worldTransform_[0].translation_.z - 1.0f,
+	};
+	Vector3 playerFromMax = {
+	    worldTransform_[0].translation_.x + 1.0f,
+	    worldTransform_[0].translation_.y + 3.0f,
+	    worldTransform_[0].translation_.z + 1.0f,
 	
+	};
+
+	ShortForm playerShortForm{
+	    .minLeftBotom = {playerFromMin},
+	    .minRightBotom = {playerFromMax.x,playerFromMin.y,playerFromMin.z},
+	    .minLeftTop = {playerFromMin.x,playerFromMax.y,playerFromMin.z},
+	    .minRightTop = {playerFromMax.x, playerFromMax.y, playerFromMin.z},
+
+	    .maxLeftBotom = {playerFromMin.x, playerFromMin.y, playerFromMax.z},
+	    .maxRightBotom = {playerFromMax.x, playerFromMin.y, playerFromMax.z},
+	    .maxLeftTop = {playerFromMin.x, playerFromMax.y, playerFromMax.z},
+	    .maxRightTop = {playerFromMax},
+
+	};
+
+	 	 
+	 bool chek = false;
+
 
 
 	Input* input_ = nullptr;
