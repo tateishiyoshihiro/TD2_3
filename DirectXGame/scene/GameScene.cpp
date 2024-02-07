@@ -140,16 +140,21 @@ void GameScene::CheckAllCollisions() {
 
 	const std::list<Card*>& playerCards = player_->GetCards();
 
+	float a ;
+	float b ;
+	float c ;
+	float d ;
+
 	//自キャラとステージ2の針の当たり判定
 	#pragma region 
 
 	posA = player_->GetWorldPosition();
 	posB = stage_T2_->GetWorldPosition();
 
-	float a = posA.x - posB.x;
-	float b = posA.y - posB.y;
-	float c = posA.z - posB.z;
-	float d = sqrt(a * a + b * b + c * c);
+	 a = posA.x - posB.x;
+	 b = posA.y - posB.y;
+	 c = posA.z - posB.z;
+	 d = sqrt(a * a + b * b + c * c);
 
 	if (d <= PlayerRadius + NeedleFloorRadius) 
 	{
@@ -167,32 +172,18 @@ void GameScene::CheckAllCollisions() {
 	posA = player_->GetWorldPosition();
 	posB = enemy_->GetWorldPosition();
 	
-	float a1 = posA.x - posB.x;
-	float b1 = posA.y - posB.y;
-	float c1 = posA.z - posB.z;
-	float d1 = sqrt(a * a + b * b + c * c);
+	 a = posA.x - posB.x;
+	b = posA.y - posB.y;
+	c = posA.z - posB.z;
+	d = sqrt(a * a + b * b + c * c);
 
-	if (d1 <= PlayerRadius + EnemyRadius) {
+	if (d <= PlayerRadius + NeedleFloorRadius) {
 	
 	
 	}
 	#pragma endregion
 
-	// 自キャラと敵の当たり判定
-#pragma region
 
-	posA = player_->GetWorldPosition();
-	posB = enemy_->GetWorldPosition();
-
-	float a1 = posA.x - posB.x;
-	float b1 = posA.y - posB.y;
-	float c1 = posA.z - posB.z;
-	float d1 = sqrt(a * a + b * b + c * c);
-
-	if (d1 <= PlayerRadius + EnemyRadius) {
-
-	}
-#pragma endregion
 
 	// 自弾と敵の当たり判定
 #pragma region
@@ -200,12 +191,12 @@ void GameScene::CheckAllCollisions() {
 		posA = card->GetWorldPosition();
 		posB = enemy_->GetWorldPosition();
 
-		float a1 = posA.x - posB.x;
-		float b1 = posA.y - posB.y;
-		float c1 = posA.z - posB.z;
-		float d1 = sqrt(a * a + b * b + c * c);
+		a = posA.x - posB.x;
+		b = posA.y - posB.y;
+		c = posA.z - posB.z;
+		d = sqrt(a * a + b * b + c * c);
 
-		if (d1 <= PlayerRadius + EnemyRadius) {
+		if (d <= PlayerRadius + NeedleFloorRadius) {
 
 		}
 	}
@@ -217,12 +208,12 @@ void GameScene::CheckAllCollisions() {
 		posA = card->GetWorldPosition();
 		posB = enemy2_->GetWorldPosition();
 
-		float a1 = posA.x - posB.x;
-		float b1 = posA.y - posB.y;
-		float c1 = posA.z - posB.z;
-		float d1 = sqrt(a * a + b * b + c * c);
+		 a = posA.x - posB.x;
+		b = posA.y - posB.y;
+		c = posA.z - posB.z;
+		d = sqrt(a * a + b * b + c * c);
 
-		if (d1 <= PlayerRadius + EnemyRadius) {
+		if (d <= PlayerRadius + NeedleFloorRadius) {
 		}
 	}
 #pragma endregion
@@ -233,12 +224,12 @@ void GameScene::CheckAllCollisions() {
 		posA = card->GetWorldPosition();
 		posB = enemy3_->GetWorldPosition();
 
-		float a1 = posA.x - posB.x;
-		float b1 = posA.y - posB.y;
-		float c1 = posA.z - posB.z;
-		float d1 = sqrt(a * a + b * b + c * c);
+		 a = posA.x - posB.x;
+		b = posA.y - posB.y;
+		c = posA.z - posB.z;
+		d = sqrt(a * a + b * b + c * c);
 
-		if (d1 <= PlayerRadius + EnemyRadius) {
+		if (d <= PlayerRadius + NeedleFloorRadius) {
 		}
 	}
 #pragma endregion
@@ -249,12 +240,12 @@ void GameScene::CheckAllCollisions() {
 		posA = card->GetWorldPosition();
 		posB = enemyRed_->GetWorldPosition();
 
-		float a1 = posA.x - posB.x;
-		float b1 = posA.y - posB.y;
-		float c1 = posA.z - posB.z;
-		float d1 = sqrt(a * a + b * b + c * c);
+		 a = posA.x - posB.x;
+		b = posA.y - posB.y;
+		c = posA.z - posB.z;
+		d = sqrt(a * a + b * b + c * c);
 
-		if (d1 <= PlayerRadius + EnemyRadius) {
+		if (d <= PlayerRadius + NeedleFloorRadius) {
 
 		}
 	}
