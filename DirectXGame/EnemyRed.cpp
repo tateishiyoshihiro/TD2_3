@@ -1,8 +1,10 @@
 ﻿#include "EnemyRed.h"
 #include "MathUtilityForText.h"
+#include <imGuiManager.h>
 
  void EnemyRed::Initialize(const std::vector<Model*>& models) {
 	BaseCharacter::Initialize(models);
+	 worldTransform_.Initialize();
 	 worldTransformEnemyRed_Head_.parent_ = &worldTransform_;
 	 worldTransformEnemyRed_L_.parent_ = &worldTransformEnemyRed_Head_;
 	 worldTransformEnemyRed_R_.parent_ = &worldTransformEnemyRed_Head_;
@@ -27,6 +29,12 @@ void EnemyRed::Update() {
 		enemyRedSpeed_ = 0.054f;
 	}*/
 	//
+	ImGui::Begin("Red");
+	ImGui::DragFloat3("scale", &worldTransform_.scale_.x);
+	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x);
+	ImGui::DragFloat3("translate", &worldTransform_.translation_.x);
+	ImGui::End();
+
 	BaseCharacter::Update();
 	// 行列を定数バッファに転送
 	worldTransformEnemyRed_Head_.UpdateMatrix();

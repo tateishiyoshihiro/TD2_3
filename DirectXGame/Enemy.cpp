@@ -3,6 +3,7 @@
 
  void Enemy::Initialize(const std::vector<Model*>& models) {
 	 BaseCharacter::Initialize(models);
+	 worldTransform_.Initialize();
 	 worldTransformEnemy_Head_.parent_ = &worldTransform_;
 	 worldTransformEnemy_L_.parent_ = &worldTransformEnemy_Head_;
 	 worldTransformEnemy_R_.parent_ = &worldTransformEnemy_Head_;

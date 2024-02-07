@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <imGuiManager.h>
 
 GameScene::GameScene() {}
 
@@ -16,6 +17,7 @@ void GameScene::Initialize() {
 	viewProjection_.translation_.y = -2.0f;
 	viewProjection_.translation_.z = -3.0f;
 	viewProjection_.Initialize();
+	viewProjection_.farZ = 100.0f;
 
 	modelFighterEnemyHead_.reset(Model::CreateFromOBJ("BlackHead", true));
 	modelFighterEnemyL_.reset(Model::CreateFromOBJ("BlackL", true));
@@ -38,6 +40,11 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+	ImGui::Begin("View");
+	ImGui::DragFloat3("rotate", &viewProjection_.rotation_.x);
+	ImGui::DragFloat3("Translate", &viewProjection_.translation_.x);
+	ImGui::End();
 
 	viewProjection_.UpdateMatrix();
 	enemy_->Update();
