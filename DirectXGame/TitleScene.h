@@ -15,6 +15,7 @@ public:
 	SceneType NextScene() { return SceneType::kGamePlay; }
 
 private:
+
 	bool isSceneEnd = false;
 
 };
