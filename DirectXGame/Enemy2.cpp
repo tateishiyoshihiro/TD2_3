@@ -22,7 +22,7 @@ void Enemy2::Update() {// 速さ
 	// 行列を定数バッファに転送
 	worldTransformEnemy_Body_.UpdateMatrix();
 
-	worldTransformEnemy_Body_.translation_.z = -35.0f;
+	worldTransformEnemy_Body_.translation_.z = 35.0f;
 }
 
 void Enemy2::Draw(const ViewProjection& viewProjection) {
