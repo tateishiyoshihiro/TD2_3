@@ -112,6 +112,7 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy2.cpp" />
+    <ClCompile Include="Enemy3.cpp" />
     <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="FollowCamera.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy2.h" />
+    <ClInclude Include="Enemy3.h" />
     <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="FollowCamera.h" />
