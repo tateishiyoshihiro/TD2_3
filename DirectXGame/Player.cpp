@@ -389,24 +389,16 @@ void Player::HitJudgmentStage1() {
 	    
 		if (CheckHitSide(playerShortForm, Block[0])) {
 	  
-		
 			 velocity_ = {0, 0, 0};
 		
 			 chek = true;
 		
 		}
 
-
-
-
-
-
-
-
 }
 
 void Player::OnCollision() {
 
-
+	worldTransform_->translation_.x = 0.0f;
 
 }
