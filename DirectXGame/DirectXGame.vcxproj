@@ -115,9 +115,11 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="FollowCamera.cpp" />
     <ClCompile Include="Func.cpp" />
+    <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="WorldTransformEX.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage_2.cpp" />
@@ -152,15 +154,18 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="FollowCamera.h" />
     <ClInclude Include="Func.h" />
+    <ClInclude Include="GameClear.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage_2.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">

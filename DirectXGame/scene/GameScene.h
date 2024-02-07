@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Audio.h"
 #include "DirectXCommon.h"
@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "DebugCamera.h"
 #include "FollowCamera.h"
+#include "Scene.h"
 
 #include "Stage.h"
 #include "Stage_2.h"
@@ -48,6 +49,9 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	bool IsSceneEnd() { return isSceneEnd; }
+	SceneType NextScene() { return SceneType::kGameClear; }
 
     /// <summary>
     /// 衝突判定と応答
@@ -118,6 +122,8 @@ private: // メンバ変数
 	const int PlayerRadius = 15;
 	const int NeedleFloorRadius = 20;
 	const int EnemyRadius = 15;
+
+	bool isSceneEnd = false;
 
 	/// <summary>
 	/// ゲームシーン用

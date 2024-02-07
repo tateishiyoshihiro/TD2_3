@@ -103,7 +103,7 @@ void GameScene::Update() {
 			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
 				GoalFlag_ = false;
-
+				isSceneEnd = true;
 			}
 		}
 	}
@@ -150,6 +150,9 @@ void GameScene::CheckAllCollisions() {
 
 	posA = player_->GetWorldPosition();
 	posB = enemy_->GetWorldPosition();
+	
+	//float a1 = posA.x - posB.x;
+
 
 
 	#pragma endregion
