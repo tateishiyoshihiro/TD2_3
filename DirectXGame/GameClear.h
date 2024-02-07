@@ -1,10 +1,20 @@
 ﻿#pragma once
-#include "Scene.h"
+#include "Audio.h"
+#include "DirectXCommon.h"
 #include "Input.h"
+#include "Model.h"
+#include "SafeDelete.h"
+#include "Scene.h"
+#include "Sprite.h"
 
 class GameClear {
 
 public:
+
+	GameClear();
+
+	~GameClear();
+
 	void Initialize();
 
 	void Update();
@@ -15,7 +25,16 @@ public:
 	SceneType NextScene() { return SceneType::kTitle; }
 
 private:
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
+	Model* model_ = nullptr;
+
 	bool isSceneEnd = false;
+
+	uint32_t textureHandleClear_ = 0;
+
+	Sprite* spriteC_ = nullptr;
 
 
 };

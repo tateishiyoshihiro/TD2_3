@@ -42,7 +42,7 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	followCamera_ = std::make_unique<FollowCamera>();
-		//ステージの初期化
+	//ステージの初期化
 	
 	
 	followCamera_->Initialize();
@@ -107,8 +107,9 @@ void GameScene::Update() {
 	viewProjection_.TransferMatrix();
 
 	XINPUT_STATE joyState;
+	XINPUT_STATE joyStatePre;
 
-	if (worldTransform_.translation_.z >= 100) {
+	if (player_->GetWorldPosition().x >= 100) {
 
 		GoalFlag_ = true;
 	}
@@ -116,13 +117,20 @@ void GameScene::Update() {
 	if (GoalFlag_ == true) {
 
 		if (Input::GetInstance()->GetJoystickState(0, joyState)) {
-
-			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
+			Input::GetInstance()->GetJoystickStatePrevious(0, joyStatePre);
+			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B &&
+			    joyStatePre.Gamepad.wButtons != XINPUT_GAMEPAD_B) {
 
 				GoalFlag_ = false;
 				isSceneEnd = true;
+
+				player_->Reset();
 			}
 		}
+	}
+	else 
+	{
+		isSceneEnd = false;
 	}
 
 #ifdef _DEBUG

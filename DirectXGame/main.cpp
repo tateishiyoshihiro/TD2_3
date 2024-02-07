@@ -119,6 +119,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				sceneNo = gameClear->NextScene();
 			}
+
+			break;
 		}
 
 		// ImGui受付終了
