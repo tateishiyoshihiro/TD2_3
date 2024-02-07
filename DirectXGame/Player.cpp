@@ -276,8 +276,6 @@ Vector3 Player::GetWorldPosition() {
 	worldPos.z = worldTransform_[0].matWorld_.m[3][2];
 
 	return worldPos;
-
-
 }
 
 Vector3 Player::GetWorldCardPosition() {
@@ -330,4 +328,10 @@ void Player::Attack() {
 		 
 		 sw = true;
 	}
+}
+
+void Player::OnCollision() {
+
+
+
 }

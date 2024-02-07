@@ -55,6 +55,9 @@ public:
 
 	void Attack();
 
+	//当たり判定
+	void OnCollision();
+
 private:
 	WorldTransform worldTransform_[4];
 

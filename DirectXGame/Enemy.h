@@ -22,6 +22,8 @@ public:
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection) override;
 
+	Vector3 GetWorldPosition();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;

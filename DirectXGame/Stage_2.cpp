@@ -42,7 +42,7 @@ void Stage_2::Update() {
 		}
 	}
 
-	if (worldTransform_.translation_.z >= 100) {
+	/*if (worldTransform_.translation_.z >= 100) {
 
 		GoalFlag_ = true;
 	}
@@ -56,7 +56,7 @@ void Stage_2::Update() {
 				GoalFlag_ = false;
 			}
 		}
-	}
+	}*/
 
 	NeedleFloorUpdate();
 }
@@ -102,4 +102,21 @@ void Stage_2::NeedleFloorUpdate() {
 			NeedleFloorFlag_ = false;
 		}
 	}
+}
+
+void Stage_2::OnCollision() {
+
+
+
+}
+
+Vector3 Stage_2::GetWorldPosition() { 
+	
+	Vector3 worldPos = {}; 
+
+	worldPos.x = worldTransformNeedleFloor_.matWorld_.m[3][0];
+	worldPos.y = worldTransformNeedleFloor_.matWorld_.m[3][1];
+	worldPos.z = worldTransformNeedleFloor_.matWorld_.m[3][2];
+
+	return worldPos;
 }

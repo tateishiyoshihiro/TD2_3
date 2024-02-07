@@ -12,9 +12,20 @@ public:
 
 	void Draw(ViewProjection& viewProjection);
 
+	//針ギミック初期化
 	void NeedleFloorInitialize();
 
+	//針ギミック更新
 	void NeedleFloorUpdate();
+
+	//当たり判定
+	void OnCollision();
+
+	Vector3 GetWorldPosition();
+
+	const WorldTransform& GetWorldTransformNeedleFloor() { return worldTransformNeedleFloor_; }
+
+	//const WorldTransform& SetWorldTransformNeedleFloor() { worldTransformNeedleFloor_; }
 
 private:
 

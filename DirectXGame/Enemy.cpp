@@ -29,3 +29,14 @@ void Enemy::Update() {
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	models_[0]->Draw(worldTransformEnemy_Body_, viewProjection);
 }
+
+Vector3 Enemy::GetWorldPosition() {
+
+	Vector3 worldPos = {};
+
+	worldPos.x = worldTransformEnemy_Body_.matWorld_.m[3][0];
+	worldPos.y = worldTransformEnemy_Body_.matWorld_.m[3][1];
+	worldPos.z = worldTransformEnemy_Body_.matWorld_.m[3][2];
+
+	return worldPos;
+}

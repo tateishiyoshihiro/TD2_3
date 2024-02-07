@@ -49,6 +49,11 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+    /// <summary>
+    /// 衝突判定と応答
+    /// </summary>
+	void CheckAllCollisions();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -107,6 +112,12 @@ private: // メンバ変数
 
 	// viewProjectionの初期化？
 	ViewProjection viewProjection_;
+
+	bool GoalFlag_ = false;
+
+	const int PlayerRadius = 15;
+	const int NeedleFloorRadius = 20;
+	const int EnemyRadius = 15;
 
 	/// <summary>
 	/// ゲームシーン用

@@ -89,6 +89,25 @@ void GameScene::Update() {
 
 	viewProjection_.TransferMatrix();
 
+	XINPUT_STATE joyState;
+
+	if (worldTransform_.translation_.z >= 100) {
+
+		GoalFlag_ = true;
+	}
+
+	if (GoalFlag_ == true) {
+
+		if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+
+			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
+
+				GoalFlag_ = false;
+
+			}
+		}
+	}
+
   #ifdef _DEBUG
 
 	if (input_->PushKey(DIK_SPACE)) {
@@ -97,19 +116,45 @@ void GameScene::Update() {
 
 	viewProjection_.UpdateMatrix();
 
-	
-	
 }
-
-	
-
 
 #endif // DEBUG
 	
-		
-	
+void GameScene::CheckAllCollisions() {
+
+	Vector3 posA, posB;
+
+	//自キャラとステージ2の針の当たり判定
+	#pragma region 
+
+	posA = player_->GetWorldPosition();
+	posB = stage_T2_->GetWorldPosition();
+
+	float a = posA.x - posB.x;
+	float b = posA.y - posB.y;
+	float c = posA.z - posB.z;
+	float d = sqrt(a * a + b * b + c * c);
+
+	if (d <= PlayerRadius + NeedleFloorRadius) 
+	{
+		//自キャラの衝突時コールバックを呼び出す
+		player_->OnCollision();
+		//ステージ２の衝突時コールバックを呼び出す
+		stage_T2_->OnCollision();
+	}
+
+	#pragma endregion
+
+	//自キャラと敵の当たり判定
+	#pragma region
+
+	posA = player_->GetWorldPosition();
+	posB = enemy_->GetWorldPosition();
 
 
+	#pragma endregion
+
+}		
 
 void GameScene::Draw() {
 
@@ -166,3 +211,5 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+
+
