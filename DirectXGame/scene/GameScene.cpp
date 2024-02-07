@@ -6,6 +6,8 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
+
+	delete sprite_;
 }
 
 void GameScene::Initialize() {
@@ -15,6 +17,10 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	//イラスト等
+	textureHandleBack_ = TextureManager::Load("BackGround2.png");
+	sprite_ = Sprite::Create(textureHandleBack_, {0, 0});
+
 	   // 3Dモデル
 	// ステージのモデルの初期化
 	modelStage_T1_.reset(Model::CreateFromOBJ("T_stage_01", true));
@@ -22,11 +28,7 @@ void GameScene::Initialize() {
 	// チュートリアルステージ２
 
 	// ステージ
-	modelStage_T2_.reset(Model::CreateFromOBJ("T_stage_02", true));
-
-	// トラップ、ギミックなど
-	modelBridge_.reset(Model::CreateFromOBJ("ground", true));
-	modelNeedleFloor_.reset(Model::CreateFromOBJ("ground", true));
+	//modelStage_T2_.reset(Model::CreateFromOBJ("T_stage_02", true));
 
 	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
 	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
@@ -65,6 +67,7 @@ void GameScene::Initialize() {
 
 	enemy3_->Initialize(enemyModels);
 
+	enemyRed_ = std::make_unique<EnemyRed>();
 	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
 	enemyRed_->Initialize(enemyRedModels);
 
@@ -78,8 +81,8 @@ void GameScene::Initialize() {
 	stage_T1_ = std::make_unique<Stage>();
 	stage_T1_->Initialize(modelStage_T1_.get());
 
-	stage_T2_ = std::make_unique<Stage_2>();
-	stage_T2_->Initialize(modelStage_T2_.get(), modelBridge_.get(), modelNeedleFloor_.get());
+	//stage_T2_ = std::make_unique<Stage_2>();
+	//stage_T2_->Initialize(modelStage_T2_.get());
 }
 
 void GameScene::Update() {
@@ -122,42 +125,18 @@ void GameScene::Update() {
 		}
 	}
 
-  #ifdef _DEBUG
+#ifdef _DEBUG
 
-	/*if (input_->PushKey(DIK_SPACE)) {
-		isDebugCameraActive_ = true;
-	}
 
-	viewProjection_.UpdateMatrix();*/
-
-}
 
 #endif // DEBUG
+}
+
+
 	
 void GameScene::CheckAllCollisions() {
 
 	Vector3 posA, posB;
-
-	//自キャラとステージ2の針の当たり判定
-	#pragma region 
-
-	posA = player_->GetWorldPosition();
-	posB = stage_T2_->GetWorldPosition();
-
-	float a = posA.x - posB.x;
-	float b = posA.y - posB.y;
-	float c = posA.z - posB.z;
-	float d = sqrt(a * a + b * b + c * c);
-
-	if (d <= PlayerRadius + NeedleFloorRadius) 
-	{
-		//自キャラの衝突時コールバックを呼び出す
-		player_->OnCollision();
-		//ステージ２の衝突時コールバックを呼び出す
-		stage_T2_->OnCollision();
-	}
-
-	#pragma endregion
 
 	//自キャラと敵の当たり判定
 	#pragma region
@@ -168,11 +147,14 @@ void GameScene::CheckAllCollisions() {
 	float a1 = posA.x - posB.x;
 	float b1 = posA.y - posB.y;
 	float c1 = posA.z - posB.z;
-	float d1 = sqrt(a * a + b * b + c * c);
+	float d1 = sqrt(a1 * a1 + b1 * b1 + c1 * c1);
 
 	if (d1 <= PlayerRadius + EnemyRadius) {
 
+		player_->OnCollision();
 
+		enemy_->OnCollision();
+	}
 	#pragma endregion
 
 }		
@@ -185,6 +167,8 @@ void GameScene::Draw() {
 #pragma region 背景スプライト描画
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
+	sprite_->Draw();
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -211,10 +195,9 @@ void GameScene::Draw() {
 
 	player_->Draw(viewProjection_);
 
-
 	stage_T1_->Draw(viewProjection_);
 
-	stage_T2_->Draw(viewProjection_);
+	//stage_T2_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -243,6 +226,4 @@ void GameScene::Reset() {
 	enemy2_->Reset({0.0f, 0.0f, 35.0f});
 	enemy3_->Reset({0.0f, 0.0f, 30.0f});
 	enemyRed_->Reset({0.0f, 0.0f, 5.0f});
-
-
 }

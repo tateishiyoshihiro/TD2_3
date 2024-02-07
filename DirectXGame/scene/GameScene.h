@@ -112,10 +112,6 @@ private: // メンバ変数
 
 	std::unique_ptr<Model> modelStage_T2_;
 
-	std::unique_ptr<Model> modelNeedleFloor_;
-
-	std::unique_ptr<Model> modelBridge_;
-
 	// ゲームステージ　１
 
 	// ゲームステージ　２
@@ -128,10 +124,13 @@ private: // メンバ変数
 	bool GoalFlag_ = false;
 
 	const int PlayerRadius = 15;
-	const int NeedleFloorRadius = 20;
 	const int EnemyRadius = 15;
 
 	bool isSceneEnd = false;
+
+	uint32_t textureHandleBack_ = 0;
+
+	Sprite* sprite_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
