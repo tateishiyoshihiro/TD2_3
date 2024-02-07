@@ -550,3 +550,60 @@ Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
 
 	return result;
 }
+
+
+	 bool CheckHitVector3Max(const Vector3& A, const Vector3& B) {
+
+	if ((A.x > B.x) && (A.y > B.y) && (A.z > B.z)) {
+
+		return true;
+	}
+
+	return false;
+}
+bool CheckHitVector3Min(const Vector3& A, const Vector3& B) {
+
+	if ((A.x <= B.x) && (A.y <= B.y) && (A.z <= B.z)) {
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CheckHitSide(const ShortForm& A, const ShortForm& B) {
+
+	if (
+		(A.minLeftBotom.x <= B.maxRightTop.x) &&
+		(A.minRightTop.x >= B.maxLeftBotom.x)) {
+
+		if ((A.minLeftBotom.y <= B.maxRightTop.y) && 
+			(A.minRightTop.y >= B.maxLeftBotom.y)) {
+
+		   if ((A.minLeftBotom.z <= B.maxRightTop.z) && 
+			   (A.minRightTop.z >= B.maxLeftBotom.z)) {
+
+				return true;
+			}
+
+		}
+	}
+	return false;
+}
+
+bool CheckHitVertical(const ShortForm& A, const ShortForm& B) {
+
+	if (CheckHitVector3Max(A.minLeftTop, B.minRightTop) &&
+	    CheckHitVector3Min(A.minRightTop, B.minLeftTop)) {
+
+		if (CheckHitVector3Max(A.minLeftBotom, B.minRightBotom) &&
+		    CheckHitVector3Min(A.minRightBotom, B.minLeftBotom)) {
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+

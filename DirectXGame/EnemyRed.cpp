@@ -4,7 +4,7 @@
 	//
 	BaseCharacter::Initialize(models);
 	worldTransform_.Initialize();
-
+	worldTransformEnemyRed_Body_.scale_ = {1.0f, 1.0f, 1.0f};
 	worldTransformEnemyRed_Body_.Initialize();
 	worldTransformEnemyRed_Body_.translation_.z = -35.0f;
  }
@@ -29,3 +29,5 @@ void EnemyRed::Update() {
 void EnemyRed::Draw(const ViewProjection& viewProjection) {
 	models_[0]->Draw(worldTransformEnemyRed_Body_, viewProjection);
 }
+
+void EnemyRed::Reset(const Vector3& pos) { worldTransformEnemyRed_Body_.translation_ = pos; }

@@ -4,9 +4,10 @@
 #include "WorldTransform.h"
 #include <cassert>
 #include"BaseCharacter.h"
-class Enemy :public BaseCharacter {
 
-public:
+class Enemy2 : public BaseCharacter {
+
+   public:
 	///< summary>
 	// 初期化
 	///  </summary>
@@ -22,11 +23,7 @@ public:
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection) override;
 
-	Vector3 GetWorldPosition();
-
 	void Reset(const Vector3& pos);
-
-
 
 private:
 	// ワールド変換データ
@@ -35,6 +32,7 @@ private:
 	//  モデル
 	Model* model_ = nullptr;
 	// 3Dモデル
-	 Model* modelFighterEnemyBody_ ;
-	float enemySpeed_ = 0.055f;
+	Model* modelFighterEnemyBody_;
+	float enemySpeed_ = -0.054f;
+
 };

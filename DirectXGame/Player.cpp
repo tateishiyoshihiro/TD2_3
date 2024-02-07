@@ -92,12 +92,62 @@ if (behaviorRequest_) {
 		break;
 	}
 
+	const float kGravityAcceleration = 0.06f;
+
+	Vector3 accelerationVector = {0, -kGravityAcceleration, 0};
+
+	velocity_ = Add(velocity_, accelerationVector);
+
+	if (worldTransform_[0].translation_.y < 0.0f) {
+		worldTransform_[0].translation_.y = 0;
+
+		behaviorRequest_ = Behavior::kRoot;
+	}
+
+	//const float kMoveLimitZ = 4;
+	//const float kMoveLimitX = 42;
+
+	///worldTransform_[0].translation_.z = max(worldTransform_[0].translation_.z, -kMoveLimitZ);
+	///worldTransform_[0].translation_.z = min(worldTransform_[0].translation_.z, +kMoveLimitZ);
+	//worldTransform_[0].translation_.x = max(worldTransform_[0].translation_.x, -kMoveLimitX);
+	//worldTransform_[0].translation_.x = min(worldTransform_[0].translation_.x, +kMoveLimitX);
+
+	   playerFromMin = {
+	    worldTransform_[0].translation_.x - 1.0f,
+	    worldTransform_[0].translation_.y,
+	    worldTransform_[0].translation_.z - 1.0f,
+	};
+	playerFromMax = {
+	    worldTransform_[0].translation_.x + 1.0f,
+	    worldTransform_[0].translation_.y + 3.0f,
+	    worldTransform_[0].translation_.z + 1.0f,
+
+	};
+
+	//短径を使い当たり判定を作る
+	HitJudgmentStage1();
+
 	for (int i = 0; i < 4; i++) {
 
 		worldTransform_[i].UpdateMatrix();
 	}
 	
 		
+	#ifdef _DEBUG
+	ImGui::Begin("Player");
+
+	ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
+	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
+	ImGui::DragFloat3("Translation", &worldTransform_[0].translation_.x, 0.01f);
+	ImGui::DragFloat3("Translation1", &worldTransform_[1].translation_.x, 0.01f);
+
+	ImGui::DragFloat3("TranslationWold", &worldTransform_[0].matWorld_.m[3][0], 0.01f);
+
+	ImGui::Checkbox("ty", & chek);
+
+	ImGui::End();
+
+#endif
 
 	for (Card* card : card_) {
 		card->Update();
@@ -144,7 +194,8 @@ void Player::BehaviorRootUpdate() {
 
 		if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B) {
 
-			behaviorRequest_ = Behavior::kAttack;
+			chek = true;
+		//	behaviorRequest_ = Behavior::kAttack;
 		}
 		if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_A ) {
 
@@ -164,36 +215,30 @@ void Player::BehaviorRootUpdate() {
 
 		velocity_ = TransformNormal(velocity_, rotateXYZMatrix);
 
-		if (velocity_.x != 0 && velocity_.x >= 0.01) {
-
-			
+		/*if (velocity_.x != 0 && velocity_.x >= 0.01) {
 				worldTransform_[0].rotation_.y = 1.57f;
-			
 		} else if (velocity_.x != 0 && velocity_.x <= -0.01)
-		{
 			    worldTransform_[0].rotation_.y =- 1.57f;
+		}*/
 
+		if (velocity_.x != 0 || velocity_.z != 0) {
+			worldTransform_[0].rotation_.y = std::atan2(velocity_.x, velocity_.z);
 		}
+
+
 	}
+
+	
 
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += velocity_.x;
 		worldTransform_[0].translation_.y += velocity_.y;
-		//worldTransform_[0].translation_.z += velocity_.z;
+		worldTransform_[0].translation_.z += velocity_.z;
 
 		worldTransform_[i].UpdateMatrix();
 	}
 
-	#ifdef _DEBUG
-	ImGui::Begin("Player");
-
-	 ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
-	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
-	 ImGui::DragFloat3("Rotation", &worldTransform_[0].translation_.x, 0.01f);
-
-	ImGui::End();
-
-#endif
+	
 
 }
 
@@ -242,7 +287,7 @@ void Player::BehaviorJumpInitialize() {
 	;
 	worldTransform_[3].rotation_.x = 0;
 	
-	const float kJumpFirstSpeed = 1.0f;
+	const float kJumpFirstSpeed = 1.1f;
 
 	velocity_.y =  kJumpFirstSpeed;
 
@@ -254,17 +299,11 @@ void Player::BehaviorJumpUpdate() {
 
 	worldTransform_[0].translation_.y += velocity_.y;
 
-	const float kGravityAcceleration = 0.06f;
+	worldTransform_[0].translation_.z += velocity_.z;
 
-	Vector3 accelerationVector = {0, -kGravityAcceleration, 0};
-
-	velocity_ = Add(velocity_,accelerationVector);
-
-	if (worldTransform_[0].translation_.y < 0.0f) {
-		worldTransform_[0].translation_.y = 0;
 	
-		  behaviorRequest_ = Behavior::kRoot;
-	}
+
+	
 }
 
 Vector3 Player::GetWorldPosition() { 
@@ -328,6 +367,42 @@ void Player::Attack() {
 		 
 		 sw = true;
 	}
+}
+
+void Player::HitJudgmentStage1() {
+
+	  ShortForm Block[5];
+
+	  Block[0] = {
+	      .minLeftBotom = {-22.0f,0.0f, -5.0f},
+	      .minRightBotom = {-27.0f,0.0f,-5.0f},
+	      .minLeftTop = {-22.0f,10.0f,-5.0f},
+	      .minRightTop = {-27.0f, 10.0f,-5.0f},
+
+	      .maxLeftBotom = {-22.0f, 0.0f, 5.0f},
+	      .maxRightBotom = {-27.0f, 0.0f, 5.0f},
+	      .maxLeftTop = {-22.0f, 10.0f, 5.0f},
+	      .maxRightTop = {-27.0f, 10.0f, 5.0f},
+	  };
+	  
+
+	    
+		if (CheckHitSide(playerShortForm, Block[0])) {
+	  
+		
+			 velocity_ = {0, 0, 0};
+		
+			 chek = true;
+		
+		}
+
+
+
+
+
+
+
+
 }
 
 void Player::OnCollision() {

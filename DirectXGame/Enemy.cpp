@@ -5,6 +5,7 @@
 	//
 	 BaseCharacter::Initialize(models);
 	 worldTransform_.Initialize();
+	 worldTransformEnemy_Body_.scale_ = {1.0f, 1.0f, 1.0f};
 	 worldTransformEnemy_Body_.Initialize();
  }
 
@@ -39,4 +40,12 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = worldTransformEnemy_Body_.matWorld_.m[3][2];
 
 	return worldPos;
+}
+
+void Enemy::Reset(const Vector3& pos) {
+
+
+worldTransformEnemy_Body_.translation_ = pos;
+
+
 }

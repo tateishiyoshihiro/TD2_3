@@ -10,6 +10,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "Enemy.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
 #include "EnemyRed.h"
 #include "Player.h"
 #include "DebugCamera.h"
@@ -58,6 +60,8 @@ public: // メンバ関数
     /// </summary>
 	void CheckAllCollisions();
 
+	void Reset();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -87,6 +91,10 @@ private: // メンバ変数
 	// 敵
 	std::unique_ptr<Enemy> enemy_;
 	std::unique_ptr<EnemyRed> enemyRed_;
+	std::unique_ptr<Enemy2> enemy2_;
+	std::unique_ptr<Enemy3> enemy3_;
+
+
 	//worldTransformの初期化？
 	WorldTransform worldTransform_;
 

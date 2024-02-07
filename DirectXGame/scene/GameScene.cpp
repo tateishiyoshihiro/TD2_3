@@ -57,6 +57,14 @@ void GameScene::Initialize() {
 	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
 	enemy_->Initialize(enemyModels);
 
+	enemy2_ = std::make_unique<Enemy2>();
+	
+	enemy2_->Initialize(enemyModels);
+
+	enemy3_ = std::make_unique<Enemy3>();
+
+	enemy3_->Initialize(enemyModels);
+
 	enemyRed_ = std::make_unique<EnemyRed>();
 	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
 	enemyRed_->Initialize(enemyRedModels);
@@ -78,12 +86,18 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 
 	enemy_->Update();
+	enemy2_->Update();
+	enemy3_->Update();
+
+
 	enemyRed_->Update();
 	stage_T1_->Update();
 
 	stage_T2_->Update();
 	player_->Update();
 	followCamera_->Update();
+	
+	
 	viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
 	viewProjection_.matView = followCamera_->GetViewProjection().matView;
 
@@ -184,6 +198,9 @@ void GameScene::Draw() {
 	
 	enemy_->Draw(viewProjection_);
 	enemyRed_->Draw(viewProjection_);
+	enemy2_->Draw(viewProjection_);
+	enemy3_->Draw(viewProjection_);
+
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
@@ -215,4 +232,13 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+void GameScene::Reset() {
 
+	//呼び出すときステージごとに中身を変える
+	enemy_->Reset({0.0f, 0.0f, 5.0f});
+	enemy2_->Reset({0.0f, 0.0f, 35.0f});
+	enemy3_->Reset({0.0f, 0.0f, 30.0f});
+	enemyRed_->Reset({0.0f, 0.0f, 5.0f});
+
+
+}
