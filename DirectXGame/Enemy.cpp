@@ -29,3 +29,11 @@ void Enemy::Update() {
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	models_[0]->Draw(worldTransformEnemy_Body_, viewProjection);
 }
+
+void Enemy::Reset(const Vector3& pos) {
+
+
+worldTransformEnemy_Body_.translation_ = pos;
+
+
+}

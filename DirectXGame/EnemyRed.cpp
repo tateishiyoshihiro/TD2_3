@@ -29,3 +29,5 @@ void EnemyRed::Update() {
 void EnemyRed::Draw(const ViewProjection& viewProjection) {
 	models_[0]->Draw(worldTransformEnemyRed_Body_, viewProjection);
 }
+
+void EnemyRed::Reset(const Vector3& pos) { worldTransformEnemyRed_Body_.translation_ = pos; }

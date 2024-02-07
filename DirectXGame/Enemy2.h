@@ -1,36 +1,38 @@
-ï»¿#pragma once
+#pragma once
 #include "Input.h"
 #include "Model.h"
 #include "WorldTransform.h"
 #include <cassert>
 #include"BaseCharacter.h"
-class EnemyRed : public BaseCharacter {
 
-public:
+class Enemy2 : public BaseCharacter {
+
+   public:
 	///< summary>
-	// åˆæœŸåŒ–
+	// ‰Šú‰»
 	///  </summary>
 	void Initialize(const std::vector<Model*>& models) override;
 
 	/// <summary>
-	// æ›´æ–°
+	// XV
 	/// </summary>
 	void Update() override;
 
 	/// <summary>
-	// æç”»
+	// •`‰æ
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection) override;
 
 	void Reset(const Vector3& pos);
 
 private:
-	// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
+	// ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
 	WorldTransform worldTransform_;
-	WorldTransform worldTransformEnemyRed_Body_;
-	//  ãƒ¢ãƒ‡ãƒ«
+	WorldTransform worldTransformEnemy_Body_;
+	//  ƒ‚ƒfƒ‹
 	Model* model_ = nullptr;
-	// 3Dãƒ¢ãƒ‡ãƒ«
-	Model* modelFighterEnemyRedBody_;
-	float enemyRedSpeed_ = -0.054f;
+	// 3Dƒ‚ƒfƒ‹
+	Model* modelFighterEnemyBody_;
+	float enemySpeed_ = -0.054f;
+
 };
