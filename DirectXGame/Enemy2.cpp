@@ -4,6 +4,7 @@ void Enemy2::Initialize(const std::vector<Model*>& models) {//
 	BaseCharacter::Initialize(models);
 	worldTransform_.Initialize();
 	worldTransformEnemy_Body_.Initialize();
+	worldTransformEnemy_Body_.translation_.z = 35.0f;
 }
 
 void Enemy2::Update() {// 速さ
@@ -22,7 +23,7 @@ void Enemy2::Update() {// 速さ
 	// 行列を定数バッファに転送
 	worldTransformEnemy_Body_.UpdateMatrix();
 
-	worldTransformEnemy_Body_.translation_.z = 35.0f;
+	
 }
 
 void Enemy2::Draw(const ViewProjection& viewProjection) {
