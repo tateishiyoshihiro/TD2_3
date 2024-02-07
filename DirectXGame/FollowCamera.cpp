@@ -56,12 +56,12 @@ void FollowCamera::Update() {
 	// viewProjection_.TransferMatrix();
 
 	#ifdef _DEBUG
-	ImGui::Begin("Camera");
+	/*ImGui::Begin("Camera");
 
 	ImGui::DragFloat3("Translation", &viewProjection_.translation_.x, 0.01f);
 	ImGui::DragFloat3("Rotation", &viewProjection_.rotation_.x, 0.01f);
 
-	ImGui::End();
+	ImGui::End();*/
 
 	#endif
 

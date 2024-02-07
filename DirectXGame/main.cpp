@@ -3,6 +3,7 @@
 #include "DirectXCommon.h"
 #include "GameScene.h"
 #include "TitleScene.h"
+#include "setumei.h"
 #include "GameClear.h"
 #include "ImGuiManager.h"
 #include "PrimitiveDrawer.h"
@@ -21,6 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	GameScene* gameScene = nullptr;
 	TitleScene* titleScene = nullptr;
 	GameClear* gameClear = nullptr;
+	setumei* Setumei = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -71,6 +73,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameClear = new GameClear();
 	gameClear->Initialize();
 
+	Setumei = new setumei();
+	Setumei->Initialize();
+
 	SceneType sceneNo = SceneType::kTitle;
 
 	// メインループ
@@ -97,6 +102,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (titleScene->IsSceneEnd()) {
 
 				sceneNo = titleScene->NextScene();
+			}
+			break;
+
+		case SceneType::kSetumei:
+
+			Setumei->Update();
+			if (Setumei->IsSceneEnd()) {
+
+				sceneNo = Setumei->NextScene();
 			}
 
 			break;
@@ -135,6 +149,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SceneType::kTitle:
 			titleScene->Draw();
 			break;
+		case SceneType::kSetumei:
+			Setumei->Draw();
+			break;
 		case SceneType::kGamePlay:
 			gameScene->Draw();
 			break;
@@ -155,6 +172,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	delete titleScene;
 	delete gameClear;
+	delete Setumei;
 
 	// 各種解放
 	SafeDelete(gameScene);

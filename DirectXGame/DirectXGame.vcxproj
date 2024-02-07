@@ -121,6 +121,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="setumei.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="WorldTransformEX.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="scene\GameScene.h" />
+    <ClInclude Include="setumei.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage_2.h" />
     <ClInclude Include="TitleScene.h" />

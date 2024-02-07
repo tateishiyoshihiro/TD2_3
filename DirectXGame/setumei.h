@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Audio.h"
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -7,24 +7,25 @@
 #include "Scene.h"
 #include "Sprite.h"
 
-class TitleScene {
+class setumei {
 
 public:
 
-	TitleScene();
+	setumei();
 
-	~TitleScene();
-
+	~setumei();
+	
 	void Initialize();
-
+	
 	void Update();
 
 	void Draw();
 
 	bool IsSceneEnd() { return isSceneEnd; }
-	SceneType NextScene() { return SceneType::kSetumei; }
+	SceneType NextScene() { return SceneType::kGamePlay; }
 
 private:
+
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -32,8 +33,8 @@ private:
 
 	bool isSceneEnd = false;
 
-	uint32_t textureHandle_ = 0;
+	uint32_t textureHandleS_ = 0;
 
-	Sprite* sprite_ = nullptr;
+	Sprite* spriteS_ = nullptr;
 
 };

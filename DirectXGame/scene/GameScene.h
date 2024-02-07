@@ -132,6 +132,9 @@ private: // メンバ変数
 
 	const int PlayerRadius = 15;
 	const int EnemyRadius = 15;
+	const int EnemyRadius2 = 15;
+	const int EnemyRadius3 = 15;
+	const int EnemyRadiusR = 15;
 
 	bool isSceneEnd = false;
 

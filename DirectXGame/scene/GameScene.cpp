@@ -75,7 +75,7 @@ void GameScene::Initialize() {
 
 	enemy3_ = std::make_unique<Enemy3>();
 
-	enemy3_->Initialize(enemyModels);
+	enemy3_->Initialize(enemyRedModels);
 
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 
@@ -154,6 +154,8 @@ void GameScene::CheckAllCollisions() {
 
 	Vector3 posA, posB;
 
+	const std::list<Card*>& playerCards = player_->GetCards();
+
 	//自キャラと敵の当たり判定
 	#pragma region
 
@@ -173,6 +175,77 @@ void GameScene::CheckAllCollisions() {
 	}
 	#pragma endregion
 
+
+	// 自弾と敵の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy_->GetWorldPosition();
+
+		float a = posA.x - posB.x;
+		float b = posA.y - posB.y;
+		float c = posA.z - posB.z;
+		float d = sqrt(a * a + b * b + c * c);
+
+		if (d <= PlayerRadius + EnemyRadius) {
+			card->OnColision();
+
+
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵2の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy2_->GetWorldPosition();
+
+		float a2 = posA.x - posB.x;
+		float b2 = posA.y - posB.y;
+		float c2 = posA.z - posB.z;
+		float d2 = sqrt(a2 * a2 + b2 * b2 + c2 * c2);
+
+		if (d2 <= PlayerRadius + EnemyRadius2) {
+			card->OnColision();
+
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵3の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy3_->GetWorldPosition();
+
+		float a3 = posA.x - posB.x;
+		float b3 = posA.y - posB.y;
+		float c3 = posA.z - posB.z;
+		float d3 = sqrt(a3 * a3 + b3 * b3 + c3 * c3);
+
+		if (d3 <= PlayerRadius + EnemyRadius) {
+			card->OnColision();
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵Redの当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemyRed_->GetWorldPosition();
+
+		float aR = posA.x - posB.x;
+		float bR = posA.y - posB.y;
+		float cR = posA.z - posB.z;
+		float dR = sqrt(aR * aR + bR * bR + cR * cR);
+
+		if (dR <= PlayerRadius + EnemyRadiusR) {
+			card->OnColision();
+		}
+	}
+#pragma endregion
 }		
 
 void GameScene::Draw() {

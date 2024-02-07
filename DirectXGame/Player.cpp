@@ -134,18 +134,18 @@ if (behaviorRequest_) {
 	
 		
 	#ifdef _DEBUG
-	ImGui::Begin("Player");
+	//ImGui::Begin("Player");
 
-	ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
-	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
-	ImGui::DragFloat3("Translation", &worldTransform_[0].translation_.x, 0.01f);
-	//ImGui::DragFloat3("Translation1", &worldTransform_[0].translation_.z, 0.01f);
+	//ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
+	//ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
+	//ImGui::DragFloat3("Translation", &worldTransform_[0].translation_.x, 0.01f);
+	////ImGui::DragFloat3("Translation1", &worldTransform_[0].translation_.z, 0.01f);
 
-	ImGui::DragFloat3("TranslationWold", &worldTransform_[0].matWorld_.m[3][0], 0.01f);
+	//ImGui::DragFloat3("TranslationWold", &worldTransform_[0].matWorld_.m[3][0], 0.01f);
 
-	ImGui::Checkbox("ty", & chek);
+	//ImGui::Checkbox("ty", & chek);
 
-	ImGui::End();
+	//ImGui::End();
 
 #endif
 
