@@ -65,7 +65,6 @@ void GameScene::Initialize() {
 
 	enemy3_->Initialize(enemyModels);
 
-	enemyRed_ = std::make_unique<EnemyRed>();
 	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
 	enemyRed_->Initialize(enemyRedModels);
 
@@ -96,6 +95,7 @@ void GameScene::Update() {
 	stage_T2_->Update();
 	player_->Update();
 	followCamera_->Update();
+
 	
 	
 	viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
@@ -124,11 +124,11 @@ void GameScene::Update() {
 
   #ifdef _DEBUG
 
-	if (input_->PushKey(DIK_SPACE)) {
+	/*if (input_->PushKey(DIK_SPACE)) {
 		isDebugCameraActive_ = true;
 	}
 
-	viewProjection_.UpdateMatrix();
+	viewProjection_.UpdateMatrix();*/
 
 }
 
@@ -165,8 +165,12 @@ void GameScene::CheckAllCollisions() {
 	posA = player_->GetWorldPosition();
 	posB = enemy_->GetWorldPosition();
 	
-	//float a1 = posA.x - posB.x;
+	float a1 = posA.x - posB.x;
+	float b1 = posA.y - posB.y;
+	float c1 = posA.z - posB.z;
+	float d1 = sqrt(a * a + b * b + c * c);
 
+	if (d1 <= PlayerRadius + EnemyRadius) {
 
 
 	#pragma endregion

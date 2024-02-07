@@ -24,6 +24,8 @@ public:
 
 	Vector3 GetWorldPosition();
 
+	void OnCollision();
+
 	void Reset(const Vector3& pos);
 
 

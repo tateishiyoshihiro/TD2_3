@@ -49,3 +49,5 @@ worldTransformEnemy_Body_.translation_ = pos;
 
 
 }
+
+void Enemy::OnCollision() {}
