@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Input.h"
 #include "Model.h"
 #include "WorldTransform.h"
@@ -9,29 +9,29 @@ class Enemy2 : public BaseCharacter {
 
    public:
 	///< summary>
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	///  </summary>
 	void Initialize(const std::vector<Model*>& models) override;
 
 	/// <summary>
-	// XV
+	// æ›´æ–°
 	/// </summary>
 	void Update() override;
 
 	/// <summary>
-	// •`‰æ
+	// æç”»
 	/// </summary>
 	void Draw(const ViewProjection& viewProjection) override;
 
 	void Reset(const Vector3& pos);
 
 private:
-	// ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
 	WorldTransform worldTransformEnemy_Body_;
-	//  ƒ‚ƒfƒ‹
+	//  ãƒ¢ãƒ‡ãƒ«
 	Model* model_ = nullptr;
-	// 3Dƒ‚ƒfƒ‹
+	// 3Dãƒ¢ãƒ‡ãƒ«
 	Model* modelFighterEnemyBody_;
 	float enemySpeed_ = -0.054f;
 

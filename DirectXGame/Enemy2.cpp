@@ -1,14 +1,15 @@
-#include "Enemy2.h"
+ï»¿#include "Enemy2.h"
 
 void Enemy2::Initialize(const std::vector<Model*>& models) {//
 	BaseCharacter::Initialize(models);
 	worldTransform_.Initialize();
+	worldTransformEnemy_Body_.scale_ = {1.0f, 1.0f, 1.0f};
 	worldTransformEnemy_Body_.Initialize();
 	worldTransformEnemy_Body_.translation_.z = 35.0f;
 }
 
-void Enemy2::Update() {// ‘¬‚³
-	// ‘¬‚³
+void Enemy2::Update() {// é€Ÿã•
+	// é€Ÿã•
 	worldTransformEnemy_Body_.translation_.x += enemySpeed_;
 	worldTransformEnemy_Body_.translation_.x =
 	    worldTransformEnemy_Body_.translation_.x + enemySpeed_;
@@ -20,7 +21,7 @@ void Enemy2::Update() {// ‘¬‚³
 	}
 	//
 	BaseCharacter::Update();
-	// s—ñ‚ğ’è”ƒoƒbƒtƒ@‚É“]‘—
+	// è¡Œåˆ—ã‚’å®šæ•°ãƒãƒƒãƒ•ã‚¡ã«è»¢é€
 	worldTransformEnemy_Body_.UpdateMatrix();
 
 	

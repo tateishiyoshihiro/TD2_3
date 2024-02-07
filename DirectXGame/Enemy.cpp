@@ -5,6 +5,7 @@
 	//
 	 BaseCharacter::Initialize(models);
 	 worldTransform_.Initialize();
+	 worldTransformEnemy_Body_.scale_ = {1.0f, 1.0f, 1.0f};
 	 worldTransformEnemy_Body_.Initialize();
  }
 
