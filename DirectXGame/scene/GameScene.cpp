@@ -138,6 +138,8 @@ void GameScene::CheckAllCollisions() {
 
 	Vector3 posA, posB;
 
+	const std::list<Card*>& playerCards = player_->GetCards();
+
 	//自キャラとステージ2の針の当たり判定
 	#pragma region 
 
@@ -171,9 +173,95 @@ void GameScene::CheckAllCollisions() {
 	float d1 = sqrt(a * a + b * b + c * c);
 
 	if (d1 <= PlayerRadius + EnemyRadius) {
-
-
+	
+	
+	}
 	#pragma endregion
+
+	// 自キャラと敵の当たり判定
+#pragma region
+
+	posA = player_->GetWorldPosition();
+	posB = enemy_->GetWorldPosition();
+
+	float a1 = posA.x - posB.x;
+	float b1 = posA.y - posB.y;
+	float c1 = posA.z - posB.z;
+	float d1 = sqrt(a * a + b * b + c * c);
+
+	if (d1 <= PlayerRadius + EnemyRadius) {
+
+	}
+#pragma endregion
+
+	// 自弾と敵の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy_->GetWorldPosition();
+
+		float a1 = posA.x - posB.x;
+		float b1 = posA.y - posB.y;
+		float c1 = posA.z - posB.z;
+		float d1 = sqrt(a * a + b * b + c * c);
+
+		if (d1 <= PlayerRadius + EnemyRadius) {
+
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵2の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy2_->GetWorldPosition();
+
+		float a1 = posA.x - posB.x;
+		float b1 = posA.y - posB.y;
+		float c1 = posA.z - posB.z;
+		float d1 = sqrt(a * a + b * b + c * c);
+
+		if (d1 <= PlayerRadius + EnemyRadius) {
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵3の当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemy3_->GetWorldPosition();
+
+		float a1 = posA.x - posB.x;
+		float b1 = posA.y - posB.y;
+		float c1 = posA.z - posB.z;
+		float d1 = sqrt(a * a + b * b + c * c);
+
+		if (d1 <= PlayerRadius + EnemyRadius) {
+		}
+	}
+#pragma endregion
+
+	// 自弾と敵Redの当たり判定
+#pragma region
+	for (Card* card : playerCards) {
+		posA = card->GetWorldPosition();
+		posB = enemyRed_->GetWorldPosition();
+
+		float a1 = posA.x - posB.x;
+		float b1 = posA.y - posB.y;
+		float c1 = posA.z - posB.z;
+		float d1 = sqrt(a * a + b * b + c * c);
+
+		if (d1 <= PlayerRadius + EnemyRadius) {
+
+		}
+	}
+#pragma endregion
+	
+
+
 
 }		
 

@@ -31,6 +31,18 @@ void Enemy2::Draw(const ViewProjection& viewProjection) {
 	models_[0]->Draw(worldTransformEnemy_Body_, viewProjection);
 }
 
+Vector3 Enemy2::GetWorldPosition() {
+	Vector3 worldPos = {};
+
+	worldPos.x = worldTransformEnemy_Body_.matWorld_.m[3][0];
+	worldPos.y = worldTransformEnemy_Body_.matWorld_.m[3][1];
+	worldPos.z = worldTransformEnemy_Body_.matWorld_.m[3][2];
+
+	return worldPos;
+}
+
+void Enemy2::OnCollision() {}
+
 void Enemy2::Reset(const Vector3& pos) { 
 	worldTransformEnemy_Body_.translation_ = pos;
 }

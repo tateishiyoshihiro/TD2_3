@@ -62,6 +62,8 @@ public:
 
 	void HitJudgmentStage1();
 
+	const std::list<Card*>& GetCards() const { return card_; }
+
 private:
 	WorldTransform worldTransform_[4];
 
