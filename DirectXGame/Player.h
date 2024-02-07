@@ -64,6 +64,8 @@ public:
 
 	void Reset();
 
+	const std::list<Card*>& GetCards() const { return card_; }
+
 private:
 	WorldTransform worldTransform_[4];
 

@@ -23,7 +23,7 @@ void GameScene::Initialize() {
 
 	   // 3Dモデル
 	// ステージのモデルの初期化
-	modelStage_T1_.reset(Model::CreateFromOBJ("T_stage_01", true));
+	modelStage_T1_.reset(Model::CreateFromOBJ("stage", true));
 
 	// チュートリアルステージ２
 
@@ -35,9 +35,12 @@ void GameScene::Initialize() {
 	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
 
-	modelFighterEnemyBody_.reset(Model::CreateFromOBJ("needle_Body", true));
-	modelFighterEnemyRedBody_.reset(Model::CreateFromOBJ("needle_L_arm", true));
-	
+	modelFighterEnemyHead_.reset(Model::CreateFromOBJ("BlackHead", true));
+	modelFighterEnemyL_.reset(Model::CreateFromOBJ("BlackL", true));
+	modelFighterEnemyR_.reset(Model::CreateFromOBJ("BlackR", true));
+	modelFighterEnemyRedHead_.reset(Model::CreateFromOBJ("RedHead", true));
+	modelFighterEnemyRedL_.reset(Model::CreateFromOBJ("RedL", true));
+	modelFighterEnemyRedR_.reset(Model::CreateFromOBJ("RedR", true));
 
 	viewProjection_.Initialize();
 
@@ -55,9 +58,16 @@ void GameScene::Initialize() {
 
 	player_->Initialize(plyerModels);
 
+	std::vector<Model*> enemyModels = {
+	    modelFighterEnemyHead_.get(), modelFighterEnemyL_.get(), modelFighterEnemyR_.get()};
+	std::vector<Model*> enemyRedModels = {
+	    modelFighterEnemyRedHead_.get(), modelFighterEnemyRedL_.get(),
+	    modelFighterEnemyRedR_.get()};
+
 	enemy_ = std::make_unique<Enemy>();
-	std::vector<Model*> enemyModels = {modelFighterEnemyBody_.get()};
 	enemy_->Initialize(enemyModels);
+	enemyRed_ = std::make_unique<EnemyRed>();
+	enemyRed_->Initialize(enemyRedModels);
 
 	enemy2_ = std::make_unique<Enemy2>();
 	
@@ -66,10 +76,6 @@ void GameScene::Initialize() {
 	enemy3_ = std::make_unique<Enemy3>();
 
 	enemy3_->Initialize(enemyModels);
-
-	enemyRed_ = std::make_unique<EnemyRed>();
-	std::vector<Model*> enemyRedModels = {modelFighterEnemyRedBody_.get()};
-	enemyRed_->Initialize(enemyRedModels);
 
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 
@@ -106,27 +112,29 @@ void GameScene::Update() {
 
 	viewProjection_.TransferMatrix();
 
-	XINPUT_STATE joyState;
-	XINPUT_STATE joyStatePre;
+	//XINPUT_STATE joyState;
+	//XINPUT_STATE joyStatePre;
 
-	if (player_->GetWorldPosition().x >= 100) {
+	if (player_->GetWorldPosition().x >= 120) {
 
 		GoalFlag_ = true;
 	}
 
 	if (GoalFlag_ == true) {
 
-		if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		GoalFlag_ = false;
+		isSceneEnd = true;
+
+		player_->Reset();
+
+		/*if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 			Input::GetInstance()->GetJoystickStatePrevious(0, joyStatePre);
 			if (joyState.Gamepad.wButtons == XINPUT_GAMEPAD_B &&
 			    joyStatePre.Gamepad.wButtons != XINPUT_GAMEPAD_B) {
 
-				GoalFlag_ = false;
-				isSceneEnd = true;
-
-				player_->Reset();
+				
 			}
-		}
+		}*/
 	}
 	else 
 	{

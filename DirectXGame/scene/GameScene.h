@@ -84,6 +84,13 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelFighterL_arm_ = nullptr;
 	std::unique_ptr<Model> modelFighterR_arm_ = nullptr;
 
+	std::unique_ptr<Model> modelFighterEnemyHead_; // 体
+	std::unique_ptr<Model> modelFighterEnemyL_;
+	std::unique_ptr<Model> modelFighterEnemyR_;
+	std::unique_ptr<Model> modelFighterEnemyRedHead_;
+	std::unique_ptr<Model> modelFighterEnemyRedL_;
+	std::unique_ptr<Model> modelFighterEnemyRedR_;
+
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 
 	std::unique_ptr<Player> player_ = nullptr;

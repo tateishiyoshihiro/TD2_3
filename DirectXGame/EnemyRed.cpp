@@ -4,20 +4,21 @@
 	//
 	BaseCharacter::Initialize(models);
 	worldTransform_.Initialize();
-	worldTransformEnemyRed_Body_.scale_ = {1.0f, 1.0f, 1.0f};
+	worldTransformEnemyRed_Body_.scale_ = {2.0f, 2.0f, 2.0f};
 	worldTransformEnemyRed_Body_.Initialize();
-	worldTransformEnemyRed_Body_.translation_.z = -35.0f;
+	worldTransformEnemyRed_Body_.translation_.y = 0.0f;
+	worldTransformEnemyRed_Body_.translation_.x = 35.0f;
  }
 
 void EnemyRed::Update() {
 	// 速さ
-	worldTransformEnemyRed_Body_.translation_.x += enemyRedSpeed_;
-	worldTransformEnemyRed_Body_.translation_.x =
-	    worldTransformEnemyRed_Body_.translation_.x + enemyRedSpeed_;
-	if (worldTransformEnemyRed_Body_.translation_.x >= 5.0f) {
+	worldTransformEnemyRed_Body_.translation_.z += enemyRedSpeed_;
+	worldTransformEnemyRed_Body_.translation_.z =
+	    worldTransformEnemyRed_Body_.translation_.z + enemyRedSpeed_;
+	if (worldTransformEnemyRed_Body_.translation_.z >= 10.0f) {
 		enemyRedSpeed_ = -0.054f;
 	}
-	if (worldTransformEnemyRed_Body_.translation_.x <= -5.0f) {
+	if (worldTransformEnemyRed_Body_.translation_.z <= -10.0f) {
 		enemyRedSpeed_ = 0.054f;
 	}
 	//

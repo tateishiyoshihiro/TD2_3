@@ -139,7 +139,7 @@ if (behaviorRequest_) {
 	ImGui::DragFloat3("Rota", &velocity_.x, 0.01f);
 	ImGui::DragFloat3("Rotation", &worldTransform_[0].rotation_.x, 0.01f);
 	ImGui::DragFloat3("Translation", &worldTransform_[0].translation_.x, 0.01f);
-	ImGui::DragFloat3("Translation1", &worldTransform_[1].translation_.x, 0.01f);
+	//ImGui::DragFloat3("Translation1", &worldTransform_[0].translation_.z, 0.01f);
 
 	ImGui::DragFloat3("TranslationWold", &worldTransform_[0].matWorld_.m[3][0], 0.01f);
 
@@ -220,15 +220,26 @@ void Player::BehaviorRootUpdate() {
 		} else if (velocity_.x != 0 && velocity_.x <= -0.01)
 			    worldTransform_[0].rotation_.y =- 1.57f;
 		}*/
+		if (worldTransform_[0].translation_.x <= -50.0f) {
+
+			worldTransform_->translation_.x = -50.0f;
+		}
+
+
+		if (worldTransform_[0].translation_.z >= 10.0f) {
+			
+			worldTransform_->translation_.z = 10.0f;
+		}
+
+		if (worldTransform_[0].translation_.z <= -10.0f) {
+			worldTransform_->translation_.z = -10.0f;
+		}
 
 		if (velocity_.x != 0 || velocity_.z != 0) {
 			worldTransform_[0].rotation_.y = std::atan2(velocity_.x, velocity_.z);
 		}
 
-
 	}
-
-	
 
 	for (int i = 0; i < 4; i++) {
 		worldTransform_[0].translation_.x += velocity_.x;
@@ -237,9 +248,6 @@ void Player::BehaviorRootUpdate() {
 
 		worldTransform_[i].UpdateMatrix();
 	}
-
-	
-
 }
 
 void Player::BehaviorAttackUpdate() {
