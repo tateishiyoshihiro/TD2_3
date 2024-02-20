@@ -42,7 +42,6 @@ int main() {
 	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f) {
 		if (*it_f == "Tamachi") {
 			it_f = list_.insert(it_f, "Takanawa Gateway");
-
 			++it_f;
 		}
 	}
