@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include <stdio.h>
-
 #include <algorithm>
 #include <cassert>
 #include <fstream>
