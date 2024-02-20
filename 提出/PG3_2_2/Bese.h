@@ -8,6 +8,7 @@ public:
     Pair(Type1 type1, Type2 type2) : num1(type1), num2(type2) {}
 
     template<typename Type>
+
     Type Min()
     {
         Type type1 = static_cast<Type>(num1);
