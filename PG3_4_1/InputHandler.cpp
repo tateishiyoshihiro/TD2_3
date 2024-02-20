@@ -27,6 +27,7 @@ void InputHandler::AssignMoveRCommand2PressKeyD()
 {
     ICommand* command = new RCommand();
     pressKeyD_ = command;
+
 }
 
 void InputHandler::AssignMoveUCommand2PressKeyW()
